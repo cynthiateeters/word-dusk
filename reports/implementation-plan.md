@@ -221,11 +221,15 @@ word-dusk/
 
 ### Acceptance criteria (from spec — final verification)
 
-- [ ] Deployed Netlify URL loads and is playable on a phone
-- [ ] 40+ generated levels, difficulty ramp 4 to 7 letters
-- [ ] Every grid word is common-tier; obscure words only ever count as bonus
-- [ ] Generator invariant tests pass; no accidental adjacencies in any shipped level
-- [ ] Progress survives a page reload
-- [ ] Keyboard and drag input both work
-- [ ] Lighthouse 90+ on Performance, Accessibility, Best Practices
-- [ ] CI green on main; README documents the dictionary pipeline
+- [x] Deployed Netlify URL loads and is playable on a phone (mobile-emulation evidence; see
+      `reports/run-record.md` Phase 5 step 5 for the logged interactive-click-through deviation)
+- [x] 40+ generated levels, difficulty ramp 4 to 7 letters
+- [x] Every grid word is common-tier; obscure words only ever count as bonus
+- [x] Generator invariant tests pass; no accidental adjacencies in any shipped level
+- [x] Progress survives a page reload
+- [x] Keyboard and drag input both work
+- [x] Lighthouse 90+ on Performance, Accessibility, Best Practices
+- [x] CI green on main; README documents the dictionary pipeline
+
+**Shipped:** https://word-dusk.netlify.app — repo: https://github.com/cynthiateeters/word-dusk
+— see `reports/run-record.md` for the full Phase 5 verification log.

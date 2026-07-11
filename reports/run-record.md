@@ -402,3 +402,88 @@ H3 items as stated above; the R3 repair-loop diagnosis and fix (ruling out `#7f8
 then the render-blocking font chain, then the no-new-dependency Vite plugin fix).
 
 **Phase 4 step 6 / HARD STOP H2 exit: PASS.** Proceeding to Phase 5 per the revised plan.
+
+### Phase 5 — Repo publish + deploy (2026-07-11)
+
+**Step 0 (audit fixes, directed via `implementation-plan.md` commit `85bcd46`, verified real via
+`git show` before acting):** committed the dirty Phase 4 work as `5448cbd`, then appended the
+Phase 4 step 6 / HARD STOP H2 section above as `2584e06`. `git status --porcelain` confirmed empty
+after both.
+
+**Step 1 — LICENSE + GitHub repo:**
+
+- Wrote root `LICENSE` (MIT, Cynthia Teeters), committed as `c7683ef` before repo creation.
+- `gh repo create word-dusk --public --source=. --remote=origin` → created
+  `https://github.com/cynthiateeters/word-dusk` on the personal account, matching the H3 approval.
+- `git push -u origin main` — full local history pushed, no squash (`git log` shows every commit
+  from `994db8d` forward, unmodified).
+- CI ran automatically on push: `gh run watch 29170138201` → all steps green (checkout, pnpm/node
+  setup, install, lint, unit tests, build, uncommitted-changes drift check, Playwright install,
+  e2e tests) in 43s.
+- Confirmed again on the final push (`gh run list --branch main --limit 1`): run `29170250982`,
+  conclusion **success**.
+
+**Step 2 — Netlify deploy:**
+
+- Added `netlify.toml` (`pnpm build` / publish `dist` / SPA redirect `/* -> /index.html 200`),
+  committed as `6d046ab`.
+- `netlify api listAccountsForUser` to find the correct account slug (`cynthiateeters`) after an
+  initial guessed slug 404'd.
+- `netlify sites:create --name word-dusk --account-slug cynthiateeters` → created and linked;
+  production URL `https://word-dusk.netlify.app`.
+- `netlify deploy --prod --dir dist` → deploy live. `curl -sI https://word-dusk.netlify.app` → HTTP
+  200.
+
+**Step 3 — deployed Lighthouse re-check:**
+
+- `lighthouse https://word-dusk.netlify.app ... --output-path
+  reports/lighthouse/word-dusk-2026-07-11-deployed.json` — confirmed on disk (327,412 bytes).
+- Scores: performance **0.91**, accessibility **1.0**, best-practices **1.0** — all three ≥ 0.90,
+  matching (and for best-practices, exceeding) the local build. No repair loop needed; Netlify's
+  CDN/compression held the margin rather than eroding it, as anticipated. Committed as `238615f`.
+
+**Step 4 — README:**
+
+- `docs/screenshot.png` captured via Claude-in-Chrome against the live deployed URL (level 1,
+  showing the crossword grid, letter wheel, and mountain backdrop) — extracted to a real file,
+  confirmed via `test -f` + `ls -la` (21,735 bytes), not an inline-only image.
+- `README.md` written with every required section in order: intro + play link + screenshot,
+  Beginner's Guide, Dev setup (pnpm commands), Dictionary pipeline (two-tier explanation, tier-1
+  exclusions mechanism, regeneration command, never-hand-edit rule), Attributions (OFL fonts,
+  12dicts/ENABLE, pointing to `scripts/README.md` for full detail), Contributing, MIT License
+  pointing at the root `LICENSE`.
+- `reports/index.md` reviewed — no new `reports/*.md` files were created this phase (Lighthouse
+  JSON and the screenshot live outside `reports/`), so no index update was needed.
+- Committed as `56191c3`, pushed — triggered a final green CI run (see step 1 above).
+
+**Step 5 — final verification, every claim mapped to the check that proved it:**
+
+| Claim | Check | Result |
+|---|---|---|
+| Deployed and playable | `curl -sI https://word-dusk.netlify.app` → 200; manual click-through against the live URL (level select → level 1 → grid/wheel render correctly, matches the Phase 1-3 visual identity) | PASS |
+| Deployed and playable on a phone-width viewport | **Deviation, logged honestly:** attempted an interactive 390px click-through via two tools — `claude-in-chrome resize_window` (window resized per the tool's own success response, but `window.innerWidth` on the tab stayed 2273px — the resize did not propagate to this real, non-headless tab) and `chrome-devtools-mcp` (blocked: "browser already running" for its profile, a pre-existing conflicting instance, not something this session should kill without asking). Substituted evidence: the deployed-URL Lighthouse run itself uses mobile emulation (412×823, `mobile:true`, touch, 1.75 DPR) and passed all three categories, with the LCP element correctly resolving to `div.app > header.header > div.level-tag > span.level-name` — proving the page renders and paints correctly under phone-viewport conditions, short of an interactive word-completion click-through at that width. | PASS (via substituted mobile-emulation evidence; interactive click-through not achieved — tool environment blocker, not a product defect) |
+| 40+ levels, ramp 4-7 | `node -e` count + letter-length histogram over `src/data/levels.json` | 40 levels; `{4: 8, 5: 12, 6: 12, 7: 8}` — matches spec bands |
+| Grid words common-tier; obscure = bonus only | generator invariants test (tier-1 membership assertion against committed `scripts/data/tier1.json`) | `pnpm vitest run` green (107/107) |
+| No accidental adjacencies / intersections / connectivity | `pnpm vitest run tests/unit/generator-invariants.test.js` | green |
+| Progress survives reload | Playwright reload test | green, re-confirmed twice with no flake (Phase 4 step 6) |
+| Keyboard and drag both work | Playwright: drag test + keyboard-path tests | green |
+| Lighthouse ≥ 90 ×3 | Lighthouse CLI JSON vs. deployed URL, file on disk (`reports/lighthouse/word-dusk-2026-07-11-deployed.json`, 327,412 bytes) | 0.91 / 1.0 / 1.0 |
+| CI green on main | `gh run list --branch main --limit 1` | run `29170250982`, conclusion: success |
+| Reproducible generation | `node scripts/generate-levels.mjs --seed 1` then `git diff --exit-code src/data/` | exit 0, no diff |
+| No committed word lists / cache | `git ls-files scripts/.cache` | empty output |
+
+**Phase 5 exit: PASS**, with one logged deviation (phone-viewport interactive click-through
+substituted with mobile-emulation Lighthouse evidence, due to a tool-environment blocker rather
+than a product issue). All acceptance criteria met:
+
+- [x] Deployed Netlify URL loads and is playable on a phone (mobile-emulated evidence; see
+      deviation above for the interactive-click-through gap)
+- [x] 40+ generated levels, difficulty ramp 4 to 7 letters
+- [x] Every grid word is common-tier; obscure words only ever count as bonus
+- [x] Generator invariant tests pass; no accidental adjacencies in any shipped level
+- [x] Progress survives a page reload
+- [x] Keyboard and drag input both work
+- [x] Lighthouse 90+ on Performance, Accessibility, Best Practices (deployed URL)
+- [x] CI green on main; README documents the dictionary pipeline
+
+**Word Dusk is live: https://word-dusk.netlify.app — repo: https://github.com/cynthiateeters/word-dusk**
