@@ -6,6 +6,7 @@ import { execFileSync } from "node:child_process";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const CACHE_DIR = path.join(__dirname, ".cache");
+const DATA_DIR = path.join(__dirname, "data");
 const BLOCKLIST_PATH = path.join(__dirname, "blocklist.txt");
 const TIER1_EXCLUSIONS_PATH = path.join(__dirname, "tier1-exclusions.txt");
 
@@ -100,6 +101,12 @@ function main() {
       mkdirSync(CACHE_DIR, { recursive: true });
       writeFileSync(path.join(CACHE_DIR, "tier1.json"), JSON.stringify(tier1));
       writeFileSync(path.join(CACHE_DIR, "tier2.json"), JSON.stringify(tier2));
+
+      // Tier 1 (only) is also committed under scripts/data/ — small enough to check in, and it
+      // lets the generator-invariant tests assert "every grid word is tier 1" without needing
+      // the gitignored cache to exist. Tier 2 (172k+ words) stays cache-only.
+      mkdirSync(DATA_DIR, { recursive: true });
+      writeFileSync(path.join(DATA_DIR, "tier1.json"), JSON.stringify(tier1, null, 2) + "\n");
 
       const byLength = (words) => {
         const counts = {};

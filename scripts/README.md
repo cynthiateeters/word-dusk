@@ -50,6 +50,14 @@ recorded value below before reuse, and the script fails loudly on mismatch.
   both flagged during H1 review as real-but-obscure words that carried no `%`/`!` marker in the
   12dicts source and so weren't caught by the marker-based filter alone.
 
+**Committed tier data**
+
+- `scripts/data/tier1.json`: the filtered, post-blocklist, post-exclusion tier-1 word list,
+  committed (unlike `scripts/.cache/`). Small enough to check in (~27.5k words) and lets the
+  generator-invariant tests assert "every grid word is tier 1" without needing the gitignored
+  cache to exist. Tier 2 (172k+ words) is not committed — too large, and not needed for that
+  assertion.
+
 ## Regeneration
 
 ```

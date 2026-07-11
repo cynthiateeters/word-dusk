@@ -14,6 +14,9 @@ const blocklist = new Set(
     .filter(Boolean),
 );
 
+const tier1Path = fileURLToPath(new URL("../../scripts/data/tier1.json", import.meta.url));
+const tier1 = new Set(JSON.parse(readFileSync(tier1Path, "utf8")).map((w) => w.toUpperCase()));
+
 // Independent re-derivation — deliberately does not import any generator internals,
 // so a bug in the generator's own bookkeeping can't hide from these checks.
 function cellKey(r, c) {
@@ -194,6 +197,9 @@ describe("generator invariants", () => {
       // no blocklisted word in grid or bonus
       for (const w of level.grid) expect(blocklist.has(w.word)).toBe(false);
       for (const b of level.bonus) expect(blocklist.has(b)).toBe(false);
+
+      // every grid word is tier 1 (the actual filtered word list, not just "formable")
+      for (const w of level.grid) expect(tier1.has(w.word)).toBe(true);
 
       // bonus sorted and disjoint from grid words
       const sorted = [...level.bonus].sort();
