@@ -3,6 +3,7 @@ import { fileURLToPath } from "node:url";
 import path from "node:path";
 import { shuffleArray } from "../src/game/rng.js";
 import { validateLevels, CURRENT_SCHEMA_VERSION } from "../src/game/levelSchema.js";
+import { letterMultiset, isFormable } from "../src/game/multiset.js";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const CACHE_DIR = path.join(__dirname, ".cache");
@@ -37,20 +38,6 @@ function mulberry32(seed) {
     t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
     return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
   };
-}
-
-function letterMultiset(word) {
-  const m = new Map();
-  for (const ch of word) m.set(ch, (m.get(ch) || 0) + 1);
-  return m;
-}
-
-function isFormable(word, availableMultiset) {
-  const need = letterMultiset(word);
-  for (const [ch, count] of need) {
-    if ((availableMultiset.get(ch) || 0) < count) return false;
-  }
-  return true;
 }
 
 function cellKey(r, c) {
