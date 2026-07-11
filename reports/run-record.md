@@ -157,3 +157,76 @@ but is exactly the same failure mode as OPE and worth knowing about if further t
 wanted later.
 
 **Phase 2 (revised) exit: PASS.** Proceeding to Phase 3.
+
+### Phase 3 — New features
+
+**Verification note before starting:** an intervening chat message claimed a further plan update
+existed (a "Fable" session message referencing the H1 verdict again). The actual, real revision
+(commit `1373c80`) had already been read and actioned above — no further plan changes were found
+or needed; proceeded on the confirmed commit content only.
+
+1. **Persistence** (`src/game/persistence.js`): single localStorage key `wordDusk.save.v1`,
+   `{ version, currentLevel, clearedLevels, bonusFoundByLevel, hintCredits }`. `bonusFoundByLevel`
+   (per-level arrays of already-found bonus words) is the deliberate choice for the "replay
+   non-farming" requirement in step 3 below — persisting per-level found-word history, not just a
+   running total, means resubmitting an already-found bonus word after a replay is classified
+   `ALREADY_FOUND` (seeded from the persisted array on level load) rather than double-counting.
+   Corrupt JSON, wrong version, and malformed shape all discard to fresh defaults, never crash.
+   6 unit tests (round-trip, corrupt JSON, wrong version, malformed shape, missing storage, bonus
+   total summation).
+2. **Level select** (`src/components/LevelSelect.jsx` + `src/game/progress.js`): a 40-tile grid,
+   cleared levels shown gold with a checkmark, locked levels dimmed and `disabled` (so they're
+   correctly unreachable by mouse, touch, and keyboard — a `disabled` button is skipped in tab
+   order and can't be activated). Level *i* unlocks once level *i-1* is cleared; level 0 always
+   unlocked. 3 unit tests for the pure unlock/cleared logic.
+3. **Hint economy** (`src/game/hints.js`): `INITIAL_HINT_CREDITS = 3`, `+1` credit per 5 cumulative
+   bonus words via `awardHintCredits(hintCredits, countBefore, countAfter)` (boundary-crossing
+   arithmetic, not a modulo check, so a single multi-word batch can award more than one credit
+   correctly). `canSpendHint`/`spendHint` gate the button at 0. Per the plan's H1-adjacent
+   follow-up, `pickHintCell(unrevealedKeys, rng = Math.random)` replaced the prototype's bare
+   `Math.random()` call site with an injectable-RNG pure function. 7 unit tests, including the
+   5-word boundary, a multi-boundary batch, non-farming on identical before/after counts, and the
+   0-credit gate.
+4. **Keyboard path** (`src/game/selection.js`'s new `keyboardSelectLetter`, wired into
+   `Wheel.jsx`): letter keys select the first unused wheel position holding that letter (handles
+   duplicate letters by position, matching the multiset-by-position rule from Phase 1), Backspace
+   pops, Enter submits, Escape clears. The wheel container is a focusable (`tabIndex={0}`,
+   `role="group"`) element with visible `:focus-visible` styling. The message line already carries
+   `aria-live="polite"` (added when wiring `App.jsx`), so results announce without extra markup.
+   3 new unit tests (duplicate-letter mapping, no-such-letter no-op, all-positions-taken no-op).
+5. **About panel** (`src/components/About.jsx`): ad-free/open-source statement, word-list and font
+   attributions pulled from the facts already recorded in `scripts/README.md` (not a live import of
+   the markdown file — restated as prose).
+6. Committed per feature (persistence, level select, hint economy, keyboard path, About panel,
+   then the `App.jsx`/`Controls.jsx` wiring that ties them together) — six commits total.
+
+**Bug found and fixed during manual verification, before considering the phase done:** `About.jsx`
+initially rendered only the `.overlay` layer (assuming an `.app` ancestor supplies the dusk
+background and text color, true when it appears atop the game but not when it's its own screen).
+Standalone, it rendered on a flat grey page with black default-serif text. Fixed by wrapping it in
+its own `.app` + `Backdrop`, matching `LevelSelect`. Caught by actually opening the panel in a
+browser, not just by the build passing.
+
+**Manual verification (Claude-in-Chrome against `pnpm dev`), all confirmed working:**
+
+- Level select renders 40 tiles; level 1 unlocked, 2-40 locked/dimmed.
+- Entering level 1, clicking into the wheel, and typing `spun` on the keyboard traced and
+  highlighted S-P-U-N with the amber trace line, matching pointer-drag visuals.
+- Enter submitted SPUN, revealing the correct grid cells; typing `sup` + Enter found a bonus word,
+  incrementing the bonus chip to "1 bonus".
+- **Reload test:** reloading the page returned to the level-select screen (screen state itself
+  isn't persisted, by design — only progress data is) with level 1 still unlocked; re-entering
+  level 1 showed "1 bonus" still present, confirming `bonusFoundByLevel` persistence survives
+  reload. Grid reveal state does not persist across reload (not part of the persisted schema by
+  design — only clear/bonus/hint progress is durable, matching the Standing Decisions schema).
+- Completed the remaining grid words (SUN, NUS, PUNS, PUN, UPS) via keyboard; the "Level complete"
+  overlay appeared with the correct word/bonus counts and a "Next level" button.
+- Clicking "Next level" returned to the level-select screen with level 1 now shown cleared (gold,
+  checkmark) and level 2 newly unlocked — confirming the unlock-on-clear chain end to end.
+- About panel opens from the level-select header, shows the corrected dusk-themed layout, and
+  closes back to level select.
+- No console errors observed during any of the above.
+
+`pnpm vitest run` → 8 files, **86 tests**, all green. `pnpm build` exits 0.
+
+**Phase 3 exit: PASS** — all features playable locally, tests green, build clean.
