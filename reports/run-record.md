@@ -351,3 +351,54 @@ steps 4-6.
   documentation gap in `CLAUDE.md` only.
 
 **Phase 4 step 5 exit: PASS.**
+
+### Phase 4 step 6 — HARD STOP H2 (2026-07-11)
+
+**Test inventory and coverage summary:**
+
+- Unit tests: **107 tests across 12 files** (`pnpm vitest run`), all green. Covers selection/trace,
+  word classification, level completion, level-schema validation, persistence (incl. failure-safe
+  writes under blocked/quota-exceeded storage), progress/unlock logic, hint economy, keyboard
+  selection, and generator invariants (independently re-derived from committed grid data — schema
+  validity, ≥40 levels, per-level run/connectivity/bounding-box/no-accidental-adjacency checks,
+  tier-1 grid-word membership against the committed `scripts/data/tier1.json`, blocklist absence,
+  bonus-set correctness, unique letter multisets across levels).
+- E2E: `tests/e2e/gameplay.spec.js`, 4 Playwright tests — drag-trace word submission, shuffle
+  preserves letters + hint spends a credit, keyboard bonus-word find, full keyboard
+  level-completion + reload persistence.
+- Lint: ESLint flat config, clean, 0 errors/warnings.
+
+**Two-run Playwright result:** run 1 — 4/4 passed (1.4s). Run 2 — 4/4 passed (1.0s). No flake.
+
+**Lighthouse scores (deployed to `reports/lighthouse/`, both files committed):**
+
+- `reports/lighthouse/word-dusk-2026-07-11.json` — first run: performance 0.84, accessibility 1.0,
+  best-practices 0.96. Triggered repair loop R3.
+- `reports/lighthouse/word-dusk-2026-07-11-r2.json` — after the `preloadFonts()` Vite plugin fix:
+  performance **0.91**, accessibility **1.0**, best-practices **0.96**. All three ≥ 0.90.
+
+**H3 approval items:**
+
+- GitHub repo: public `word-dusk` on the personal account (`cynthiateeters`), not RVCC-IDMX.
+- Netlify site name: `word-dusk` (an available subdomain variant accepted if taken).
+
+**`gh auth status`:** logged in as `cynthiateeters`, active, scopes `admin:org`, `delete_repo`,
+`gist`, `repo`, `workflow` — sufficient for repo creation and Actions.
+
+**Deviations:**
+
+- Interpreted Phase 4 step 5 ("CLAUDE.md tier1-exclusions mechanism") as a documentation gap —
+  the mechanism and its two seed exclusions (OPE, NUS) already existed and were exercised in
+  step 0 — rather than a directive to invent and append a new exclusion word. No dictionary
+  rebuild/regeneration was performed for that step.
+
+**H2 audit verdict (received 2026-07-11):** PASS on substance, approved to proceed into Phase 5,
+conditional on two fixes run first as Phase 5 step 0 (both directed via `reports/implementation-plan.md`
+commit `85bcd46`, verified real before acting): (1) nothing from Phase 4 was committed — working
+tree was dirty (`vite.config.js`, `CLAUDE.md`, `reports/run-record.md`, untracked
+`reports/lighthouse/`) — fixed by committing all four as `5448cbd`; (2) this step 6 / HARD STOP H2
+section was missing from the run record — fixed by this entry. Also approved via the same audit:
+H3 items as stated above; the R3 repair-loop diagnosis and fix (ruling out `#7f8ab0` contrast first,
+then the render-blocking font chain, then the no-new-dependency Vite plugin fix).
+
+**Phase 4 step 6 / HARD STOP H2 exit: PASS.** Proceeding to Phase 5 per the revised plan.
