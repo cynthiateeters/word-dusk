@@ -47,3 +47,52 @@ status: draft
 - `pnpm build` exits 0 after every change in this phase (fonts bundled as local assets, no external request).
 - Committed in three: pure game logic + level data (`466c942`), extracted components/styles/App wiring (`389c332`), tests (next commit).
 - **Phase 1 exit: PASS** — prototype behavior reproduced, playable locally, unit tests green, `pnpm build` exits 0.
+
+### Phase 2 — Dictionary pipeline + generator
+
+**CHECK FIRST — word-list source URLs (probed 2026-07-11):**
+
+- Tier 1: `https://wordlist.aspell.net/12dicts/` index resolved (`http://` variant 301-redirects there); found the download link `http://downloads.sourceforge.net/wordlist/12dicts-6.0.2.zip`, which resolves through two redirects to a 200 with `Content-Length: 1992138` (~1.9 MB) — plausible. Downloaded, SHA-256 `64ac1d35acb66b550c7ebc56e080b62e0bad8f5984d72059dc2e05ac48780e52`. Used `American/2of12inf.txt` (881 KB, 81,883 lines) from inside the archive.
+- Tier 2: `https://raw.githubusercontent.com/dolph/dictionary/master/enable1.txt` — 200, `Content-Length: 1743363` (~1.7 MB), matching the spec's expected size and line count (172,823 lines). SHA-256 `3f16130220645692ed49c7134e24a18504c2ca55b3c012f7290e3e77c63b1a89`.
+- Both probes passed; H5 not triggered. Full detail recorded in `scripts/README.md`.
+
+**`scripts/build-dictionary.mjs`:**
+
+- **Deviation (smallest reasonable choice):** the source zip needs unpacking. Rather than add an npm zip-extraction dependency (`fflate` was tried, then reverted — it is not on the pre-approved dependency list and adding it would have required stopping to ask first), the script shells out to the system `unzip -p` CLI via `execFileSync`, matching the spec's "no dictionary/word-list npm packages" constraint and adding zero new dependencies.
+- 12dicts format notes discovered during inspection: entries carry an optional trailing `%` (word found in only one of the two source dictionaries — stripped, word kept) or `!` (365 occurrences; undocumented in the archive's own ReadMe in a form I could confirm — excluded entirely as the conservative reading, since a wrongly-kept possibly-offensive/variant entry is worse than a wrongly-dropped common one). Recorded in `scripts/README.md`.
+- Curated `scripts/blocklist.txt` by hand (profanity/slurs, case-insensitive exact match) — not downloaded, no license concerns.
+- Result: tier 1 = 28,125 words (3-7 letters). This is somewhat above the spec's "plausibly 5k-25k" guidance band; the 12dicts inflected-forms list is intentionally permissive (includes regular plurals/conjugations), and spot checks below didn't surface anything alarming. Flagging as a **CHECK FIRST-adjacent judgment call for the H1 review**, not silently accepting it as automatically fine.
+- Tier 2 = 172,636 words (3+ letters) after blocklist.
+- Spot checks: common words (cat, dog, house, water, happy, music) all present in tier 1. Known-obscure ENABLE words (zyzzyva, aahed, qanat) present in tier 2 only. A sampled blocklist term (fuck) absent from both tiers.
+
+**`scripts/generate-levels.mjs`:**
+
+- Seeded PRNG: `mulberry32`, no bare `Math.random()` anywhere in `scripts/` or `src/game/` (reuses `src/game/rng.js`'s `shuffleArray(arr, rng)`).
+- Layout search: base word anchors the grid; candidate tier-1 sub-words (formable by multiset containment from the base word's letters) are shuffled by the seeded RNG and placed one at a time at every letter-matching anchor/direction, validated by re-deriving the full run structure after each tentative placement (no accidental adjacency), checking the 9x8 bounding box, and requiring an actual letter intersection (connectivity by construction). Placement stops at 7 words; a base word is discarded if it can't reach 4.
+- **Bug found and fixed before committing:** the first run emitted `"bonus": []` for every level — `computeBonusWords` was comparing lowercase tier-2 words against a multiset built from the (uppercase) wheel letters, so `isFormable` never matched. Fixed by lowercasing the multiset input. Re-ran; bonus lists populated correctly (verified level 9 → 25 bonus words, level 1 → 1).
+- No repair loop needed — `node scripts/generate-levels.mjs --seed 1` succeeded on the first working run: 40 levels, ramp `{4: 8, 5: 12, 6: 12, 7: 8}` matching the spec bands.
+- Verified reproducibility: re-running `--seed 1` twice produced byte-identical `src/data/levels.json` (`diff` clean); `--seed 2` produced a different file.
+- `tests/unit/generator-invariants.test.js` — written to independently re-derive runs/connectivity/bounding-box from the committed grid data (does not import any generator internals), per the runbook's "do not trust generator bookkeeping" instruction. Covers: schema validity, ≥40 levels, per-level (formability, 4-7 grid words, intersections agree, bounding box ≤9x8, connectivity, no accidental adjacency, no blocklisted word in grid/bonus, bonus sorted and disjoint from grid words, letter length matches the ramp band), and no two levels sharing a letter multiset. **43/43 passed on first run — repair loop R1 was allocated but not needed.**
+- Full suite: `pnpm vitest run` → 5 files, 65 tests, all green. `pnpm build` exits 0 with the generated data.
+- Manual play-check (Claude-in-Chrome against `pnpm dev`): level 1 ("BARN") renders correctly inside the viewport with the same visual identity as Phase 1; Hint reveals a grid cell. Programmatic check confirmed levels 1, 9, 21, and 33 all fit the 9x8 bounding box with a positive computed cell size (30-36px) — did not click through all four in-browser (would require completing intervening levels via drag, which is the same flaky-automation tradeoff noted in Phase 1; the invariant tests are the actual oracle for grid correctness across all 40 levels, not eyeballing four of them).
+- Committed as one commit (`70c5877`): dictionary pipeline, generator, blocklist, `scripts/README.md` (sources/URLs/SHA-256s/licenses/regeneration commands), regenerated `src/data/levels.json`, generator invariant tests.
+
+**Review packet — 5 sample levels across the ramp (seed 1):**
+
+| Level | Letters | Grid words | Bonus count | First 15 bonus words |
+|---|---|---|---|---|
+| 1 (4-letter band) | BARN | BARN, BRA, BRAN, RAN, NAB, BAN, BAR | 1 | ARB |
+| 9 (5-letter band) | PONES | PONES, OPE, PESO, OPENS, NOS, OPEN, PEN | 25 | ENS, EON, EONS, EPOS, NOES, NOPE, NOSE, OES, ONE, ONES, ONS, OPES, OPS, OSE, PENS |
+| 21 (6-letter band) | LOSSES | LOSSES, LOSS, SOLE, LOSES, OLE, SLOE, OLES | 15 | ELS, ESS, LESS, LOESS, LOSE, OES, OSE, OSES, SEL, SELS, SLOES, SOL, SOLES, SOLS, SOS |
+| 33 (7-letter band) | GRANTEE | GRANTEE, EAR, RANGE, EGRET, NEAR, ENTER, ANT | 110 | AGE, AGEE, AGENE, AGENT, AGER, AGREE, ANE, ANGER, ANTE, ANTRE, ARE, ARETE, ARGENT, ART, ATE |
+| 40 (7-letter band) | SPATULA | SPATULA, PLUS, SPAT, UPS, APT, SPLAT, ALPS | 67 | AAL, AALS, AAS, ALA, ALAS, ALP, ALS, ALT, ALTS, ASP, ATAP, ATAPS, ATLAS, LAP, LAPS |
+
+**Word-quality flags for human review (not auto-resolved):**
+
+- Level 9's grid includes **OPE** — archaic/dialectal for "open," technically in 12dicts but a plausible "that's not a word" moment for a player. This is exactly the class of judgment call the spec assigns to the H1 checkpoint rather than to the generator.
+- Several bonus-only entries across levels are uncommon-but-real short words (ANE, ATAP, EGRET as grid word is fine — it's a real bird — SLOE/OLES as grid words are real but less common). Bonus-tier obscurity is explicitly fine per spec; flagging only where it appears as a **grid** word, since only grid words are held to the "must not read as fake" bar.
+- Tier 1's 28,125-word count (vs. the spec's 5k-25k guidance band) is a possible contributor to lower-frequency words like OPE surfacing as grid words. If the reviewer wants a stricter tier 1, the fix is narrowing the `2of12inf.txt` filter (e.g., dropping `%`-marked entries instead of keeping them) and regenerating — not a hand-edit of `levels.json`.
+
+**Phase 2 exit: PASS, pending human word-quality review.**
+
+**HARD STOP H1 reached.** Waiting for review of the above before starting Phase 3.
