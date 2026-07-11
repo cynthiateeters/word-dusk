@@ -13,10 +13,13 @@ recorded value below before reuse, and the script fails loudly on mismatch.
 - SHA-256 (zip): `64ac1d35acb66b550c7ebc56e080b62e0bad8f5984d72059dc2e05ac48780e52`
 - License: public domain / freely redistributable (12dicts package, see the archive's own `ReadMe.html`)
 - Format notes: one word per line; a trailing `%` marks a headword found in only one of the
-  two source dictionaries (stripped, word kept); a trailing `!` marks a variant/possibly-offensive
-  entry (word excluded entirely — smallest reasonable choice, since the marker's exact meaning
-  isn't documented plainly in the archive and the blocklist can't correct for the wrong exclusion
-  direction).
+  two source dictionaries (single-source, lower-confidence common word — excluded entirely as of
+  the H1 revision below); a trailing `!` marks a variant/possibly-offensive entry (also excluded
+  entirely).
+- **H1 revision (2026-07-11):** the first generation run kept `%`-marked entries, yielding a
+  28,125-word tier 1 and low-frequency grid words like OPE (archaic for "open"). Human review
+  directed dropping `%`-marked entries as well, tightening tier 1 to more clearly common words.
+  A word dropped from tier 1 that still exists in ENABLE remains a valid bonus word.
 
 **Tier 2 (bonus words) — ENABLE word list**
 

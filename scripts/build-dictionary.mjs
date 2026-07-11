@@ -67,7 +67,7 @@ function extractTier1Words(zipPath) {
     .map((line) => line.trim())
     .filter(Boolean)
     .filter((line) => !line.includes("!")) // 12dicts marks these possibly-offensive/variant entries
-    .map((line) => line.replace(/%$/, ""))
+    .filter((line) => !line.includes("%")) // single-source headwords; too permissive for grid words (e.g. OPE)
     .filter((word) => /^[a-z]+$/.test(word));
 }
 
