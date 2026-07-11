@@ -230,3 +230,39 @@ browser, not just by the build passing.
 `pnpm vitest run` → 8 files, **86 tests**, all green. `pnpm build` exits 0.
 
 **Phase 3 exit: PASS** — all features playable locally, tests green, build clean.
+
+### Phase 4 step 0 (2026-07-11) — Phase 3 audit fixes
+
+**Verification note:** another message claiming a further plan revision arrived; verified for real
+this time via `git show 9e7f07a -- reports/implementation-plan.md` before acting, per the same
+discipline established at H1. The commit was real and matched the described diff.
+
+**a. Failure-safe persistence writes:**
+
+- `writeSave` in `src/game/persistence.js` now wraps `storage.setItem` in try/catch, degrading to
+  in-memory-only on quota-exceeded or blocked storage rather than throwing.
+- `getStorage()` in `src/App.jsx` now wraps the `window.localStorage` access itself in try/catch
+  (some strict private-browsing modes throw on the property access, not just on `setItem`).
+- New unit test: a throwing storage stub proving `writeSave` doesn't throw. `loadSave` already had
+  try/catch around `getItem` from Phase 3 — confirmed by re-reading the existing code before
+  concluding no change was needed there.
+- `pnpm vitest run` → 87 tests (was 86), all green.
+
+**b. `scripts/tier1-exclusions.txt`:**
+
+- New file, seeded with `ope` and `nus` (both flagged during H1/H1-revision review). Applied in
+  `build-dictionary.mjs` exactly like the blocklist: case-insensitive exact match, tier 1 only —
+  excluded words remain valid tier 2 bonus words.
+- Rebuilt tiers: tier 1 dropped from 27,501 to **27,499** (exactly 2 fewer, as expected). Tier 2
+  unchanged.
+- Regenerated `levels.json` with `--seed 1`: still 40 levels, same ramp distribution. Determinism
+  re-confirmed (`diff` clean across two same-seed runs).
+- **Confirmed by filter, not seed luck** (the gap explicitly flagged before): `tier1.json` itself
+  no longer contains `ope` or `nus` — checked directly, not inferred from a level not containing
+  them. Also confirmed both remain in `tier2.json` (still valid bonus words).
+- `scripts/README.md` updated with a new "Tier 1 exclusions" section documenting the mechanism as
+  the standing process for future word-quality reports: append a word, rebuild, regenerate — never
+  hand-edit `levels.json`.
+- Full `pnpm vitest run` green (87 tests); `pnpm build` exits 0.
+
+**Phase 4 step 0 exit: PASS.** Proceeding to Phase 4 steps 1-6.
