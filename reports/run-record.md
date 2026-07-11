@@ -96,3 +96,64 @@ status: draft
 **Phase 2 exit: PASS, pending human word-quality review.**
 
 **HARD STOP H1 reached.** Waiting for review of the above before starting Phase 3.
+
+### H1 revision (2026-07-11)
+
+**Verdict:** approved with one required revision before Phase 3, per `reports/implementation-plan.md`
+commit `1373c80` ("Revise plan after H1 review: drop percent-marked tier 1 entries, add
+tier-membership and hint RNG follow-ups"). Verified that commit was real (`git show 1373c80`)
+before acting on it — see the note on a false/unverified claim below.
+
+**Note on verification, not a task item:** an earlier message purporting to be this H1 verdict
+arrived via a selection from `tmp/foo` (a stray, unrelated 0-byte file noted during Phase 0) and
+separately via chat claiming `implementation-plan.md` had already been updated when it had not
+(`git diff HEAD` showed nothing). Both were treated as unverified rather than acted on; the actual
+revision was confirmed only once `git show 1373c80` produced a real commit matching the described
+diff. Recording this because the runbook's instruction-source-boundary discipline is exactly what
+caught it.
+
+**Changes made:**
+
+1. `scripts/build-dictionary.mjs`: tier 1 now also drops any `2of12inf.txt` line containing a `%`
+   marker (previously the marker was stripped and the word kept). The `!`-exclusion is unchanged.
+2. `scripts/README.md` updated to match, with an inline H1-revision note.
+3. Rebuilt tiers: `node scripts/build-dictionary.mjs` → tier 1 dropped from 28,125 to **27,501**
+   words (624 fewer); tier 2 unchanged at 172,636.
+4. Regenerated `src/data/levels.json` with `node scripts/generate-levels.mjs --seed 1` → still 40
+   levels, same ramp distribution `{4: 8, 5: 12, 6: 12, 7: 8}`. **No repair loop needed** — seed 1
+   still yielded 40 levels under the stricter filter on the first try.
+5. Determinism re-confirmed: running `--seed 1` twice after the filter change produced a
+   byte-identical `levels.json` (`diff` clean).
+6. `pnpm vitest run` → 5 files, 65 tests, all green (generator invariants included).
+7. Confirmed OPE no longer appears in any of the 40 generated grids.
+
+**Important caveat surfaced during verification, not glossed over:** the word **OPE** itself
+carries **no** `%` or `!` marker in the raw `2of12inf.txt` source (`ope` appears as a bare,
+unmarked line) — so the `%`-drop filter does not actually remove it from `tier1.json`; I confirmed
+`tier1.includes("ope")` is still `true` after the rebuild. OPE's absence from this seed-1 output is
+because the seeded base-word/candidate shuffle didn't happen to select it this run, not because the
+filter caught it. The stricter filter did remove 624 other single-source words (spot-checked: e.g.
+`aboves`, `acnes`, `actings`, `acumens`, `ados`, `advices`, `aegises`, `agapae`, `agapai` — all still
+present in tier 2 and thus still valid as bonus words, confirming nothing is lost for players). If
+OPE-class recurrence matters going forward, the real fix is a frequency- or dictionary-cross-check
+beyond what the 12dicts markers alone encode — flagging for awareness, not blocking on it, since the
+reviewer's specific requested change was implemented exactly as directed and verified.
+
+**Fresh 5-level review packet (same 5 slots, post-revision, seed 1):**
+
+| Level | Letters | Grid words | Bonus count | First 15 bonus words |
+|---|---|---|---|---|
+| 1 (4-letter band) | SPUN | SPUN, SUN, NUS, PUNS, PUN, UPS | 3 | PUS, SUP, UNS |
+| 9 (5-letter band) | WEALS | WEALS, WALE, WEAL, SAW, AWE, LEA, SALE | 25 | ALE, ALES, ALS, AWES, AWL, AWLS, ELS, LAS, LASE, LAW, LAWS, LEAS, SAE, SAL, SEA |
+| 21 (6-letter band) | ELATED | ELATED, TAD, ATE, DALE, EAT, LEE, TEED | 39 | ALE, ALEE, ALT, DAL, DATE, DEAL, DEALT, DEE, DEET, DEL, DELATE, DELE, DELTA, EEL, ELATE |
+| 33 (7-letter band) | EMETICS | EMETICS, ITS, SIT, TIC, SEE, SITE, TEE | 58 | CEE, CEES, CESTI, CETE, CETES, CIS, CIST, CITE, CITES, EME, EMES, EMETIC, EMIC, EMIT, EMITS |
+| 40 (7-letter band) | PUNCHER | PUNCHER, CURE, HER, CUP, URN, PUNCH, HEN | 30 | CEP, CHURN, CUE, CUR, CURN, ECRU, ECU, ERN, HEP, HERN, HUE, HUN, HUP, PEC, PECH |
+
+**New word-quality note:** level 1's grid includes **NUS** (plural of the Greek letter "nu") —
+unmarked in the source, same category as OPE (obscure-but-real, arguably a "that's not a word"
+risk), though milder and a standard crossword-list entry. Noting for awareness per the reviewer's
+"no second H1 stop unless a new concern" instruction — this doesn't rise to stop-worthy on its own,
+but is exactly the same failure mode as OPE and worth knowing about if further tightening is
+wanted later.
+
+**Phase 2 (revised) exit: PASS.** Proceeding to Phase 3.
