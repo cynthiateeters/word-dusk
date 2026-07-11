@@ -1,0 +1,92 @@
+{
+  "schemaVersion": 1,
+  "generator": { "seed": null, "version": "hand-ported" },
+  "levels": [
+    {
+      "id": 1,
+      "name": "Dusk",
+      "letters": ["T", "E", "A", "M"],
+      "grid": [
+        { "word": "MATE", "row": 0, "col": 0, "dir": "across" },
+        { "word": "MEAT", "row": 0, "col": 0, "dir": "down" },
+        { "word": "TEAM", "row": 0, "col": 2, "dir": "down" },
+        { "word": "TAME", "row": 3, "col": 0, "dir": "across" }
+      ],
+      "bonus": ["ATE", "EAT", "ETA", "MAT", "MET", "TAM", "TEA"]
+    },
+    {
+      "id": 2,
+      "name": "Pine",
+      "letters": ["S", "T", "O", "N", "E"],
+      "grid": [
+        { "word": "STONE", "row": 0, "col": 0, "dir": "across" },
+        { "word": "SENT", "row": 0, "col": 0, "dir": "down" },
+        { "word": "ONSET", "row": 0, "col": 2, "dir": "down" },
+        { "word": "EON", "row": 0, "col": 4, "dir": "down" },
+        { "word": "TOES", "row": 3, "col": 0, "dir": "across" }
+      ],
+      "bonus": [
+        "EONS", "NEST", "NET", "NETS", "NOSE", "NOT", "NOTE", "NOTES",
+        "ONE", "ONES", "SET", "SNOT", "SON", "SOT", "TEN", "TENS",
+        "TOE", "TON", "TONE", "TONES", "TONS"
+      ]
+    },
+    {
+      "id": 3,
+      "name": "Ridge",
+      "letters": ["B", "R", "E", "A", "D"],
+      "grid": [
+        { "word": "BEARD", "row": 0, "col": 0, "dir": "across" },
+        { "word": "BREAD", "row": 0, "col": 0, "dir": "down" },
+        { "word": "RED", "row": 0, "col": 3, "dir": "down" },
+        { "word": "DARE", "row": 4, "col": 0, "dir": "across" }
+      ],
+      "bonus": [
+        "ARE", "BAD", "BAR", "BARD", "BARE", "BARED", "BEAD", "BEAR",
+        "BED", "BRA", "BRAD", "BRED", "DAB", "DEAR", "DEBAR", "DRAB",
+        "EAR", "ERA", "RAD", "READ"
+      ]
+    },
+    {
+      "id": 4,
+      "name": "Summit",
+      "letters": ["P", "L", "A", "N", "E", "T"],
+      "grid": [
+        { "word": "PLANET", "row": 0, "col": 0, "dir": "across" },
+        { "word": "PLATE", "row": 0, "col": 0, "dir": "down" },
+        { "word": "ANTE", "row": 0, "col": 2, "dir": "down" },
+        { "word": "TEAL", "row": 0, "col": 5, "dir": "down" },
+        { "word": "APT", "row": 2, "col": 0, "dir": "across" }
+      ],
+      "bonus": [
+        "ALE", "ANT", "APE", "ATE", "EAT", "ELAN", "ETA", "LANE", "LAP",
+        "LATE", "LEAN", "LEAP", "LEAPT", "LENT", "LET", "NAP", "NAPE",
+        "NEAP", "NEAT", "NET", "PAL", "PALE", "PAN", "PANE", "PANEL",
+        "PANT", "PAT", "PATE", "PEA", "PEAL", "PEAT", "PEN", "PENAL",
+        "PET", "PETAL", "PLAN", "PLANE", "PLANT", "PLEA", "PLEAT",
+        "TALE", "TAN", "TAP", "TAPE", "TEA", "TEN"
+      ]
+    },
+    {
+      "id": 5,
+      "name": "Aurora",
+      "letters": ["M", "A", "S", "T", "E", "R"],
+      "grid": [
+        { "word": "MASTER", "row": 0, "col": 0, "dir": "across" },
+        { "word": "MEATS", "row": 0, "col": 0, "dir": "down" },
+        { "word": "STEAM", "row": 0, "col": 2, "dir": "down" },
+        { "word": "EAST", "row": 0, "col": 4, "dir": "down" }
+      ],
+      "bonus": [
+        "ARM", "ARMS", "ART", "ARTS", "ASTER", "ATE", "EAR", "EARS",
+        "EAT", "EATS", "ERA", "ERAS", "MARE", "MARES", "MARS", "MART",
+        "MARTS", "MAST", "MAT", "MATE", "MATES", "MATS", "MEAT", "MESA",
+        "MET", "RAM", "RAMS", "RAT", "RATE", "RATES", "RATS", "REST",
+        "SAME", "SAT", "SEA", "SEAM", "SEAR", "SEAT", "SET", "SMART",
+        "SMEAR", "STAR", "STARE", "STREAM", "TAM", "TAME", "TAMER",
+        "TAMERS", "TAMES", "TAR", "TARS", "TEA", "TEAM", "TEAMS",
+        "TEAR", "TEARS", "TEAS", "TERM", "TERMS", "TRAM", "TRAMS"
+      ]
+    }
+  ]
+}
