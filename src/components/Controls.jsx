@@ -1,10 +1,10 @@
 export default function Controls({ onShuffle, onHint, disabled, hintCredits }) {
   return (
     <div className="controls">
-      <button className="btn" onClick={onShuffle}>
+      <button className="btn" data-testid="shuffle-button" onClick={onShuffle}>
         Shuffle
       </button>
-      <button className="btn" onClick={onHint} disabled={disabled}>
+      <button className="btn" data-testid="hint-button" onClick={onHint} disabled={disabled}>
         Hint ({hintCredits})
       </button>
     </div>

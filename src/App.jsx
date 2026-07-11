@@ -167,11 +167,11 @@ function Game({
           </span>
         </div>
         <div className="header-actions">
-          <div className="bonus-chip" title="Bonus words found">
+          <div className="bonus-chip" title="Bonus words found" data-testid="bonus-chip">
             <span className="bonus-dot" />
             {bonusFound.size} bonus
           </div>
-          <button className="btn" onClick={onExit}>
+          <button className="btn" data-testid="levels-button" onClick={onExit}>
             Levels
           </button>
         </div>
@@ -180,7 +180,11 @@ function Game({
       <main className="board">
         <Grid data={data} revealed={revealed} justRevealed={justRevealed} cellSize={cellSize} />
 
-        <div className={`trace-word ${shake ? "shake" : ""}`} aria-live="polite">
+        <div
+          className={`trace-word ${shake ? "shake" : ""}`}
+          aria-live="polite"
+          data-testid="trace-word"
+        >
           {trace ? (
             <span className="trace-live">{trace}</span>
           ) : message ? (

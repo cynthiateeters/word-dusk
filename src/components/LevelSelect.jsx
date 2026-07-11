@@ -21,6 +21,7 @@ export default function LevelSelect({ levels, clearedLevels, onSelect, onAbout }
             <button
               key={level.id}
               className={`level-tile ${cleared ? "cleared" : ""} ${!unlocked ? "locked" : ""}`}
+              data-testid={`level-tile-${i}`}
               disabled={!unlocked}
               onClick={() => onSelect(i)}
             >

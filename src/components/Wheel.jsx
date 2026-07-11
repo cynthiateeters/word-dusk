@@ -129,6 +129,7 @@ export default function Wheel({ letters, onSubmit, onTraceChange, disabled }) {
       tabIndex={0}
       role="group"
       aria-label="Letter wheel"
+      data-testid="wheel"
       onPointerDown={handleDown}
       onPointerMove={handleMove}
       onPointerUp={handleUp}
@@ -148,6 +149,7 @@ export default function Wheel({ letters, onSubmit, onTraceChange, disabled }) {
         <div
           key={i}
           className={`wheel-letter ${selection.includes(i) ? "selected" : ""}`}
+          data-testid={`wheel-letter-${i}`}
           style={{
             left: positions[i].x - LETTER_SIZE / 2,
             top: positions[i].y - LETTER_SIZE / 2,
