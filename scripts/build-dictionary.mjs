@@ -7,6 +7,7 @@ import { execFileSync } from "node:child_process";
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const CACHE_DIR = path.join(__dirname, ".cache");
 const BLOCKLIST_PATH = path.join(__dirname, "blocklist.txt");
+const TIER1_EXCLUSIONS_PATH = path.join(__dirname, "tier1-exclusions.txt");
 
 const SOURCES = {
   tier1: {
@@ -48,9 +49,9 @@ async function ensureCached(source) {
   return source.cachePath;
 }
 
-function loadBlocklist() {
+function loadWordSet(filePath) {
   return new Set(
-    readFileSync(BLOCKLIST_PATH, "utf8")
+    readFileSync(filePath, "utf8")
       .split("\n")
       .map((w) => w.trim().toLowerCase())
       .filter(Boolean)
@@ -82,11 +83,13 @@ function extractTier2Words(txtPath) {
 function main() {
   return Promise.all([ensureCached(SOURCES.tier1), ensureCached(SOURCES.tier2)]).then(
     ([tier1ZipPath, tier2TxtPath]) => {
-      const blocklist = loadBlocklist();
+      const blocklist = loadWordSet(BLOCKLIST_PATH);
+      const tier1Exclusions = loadWordSet(TIER1_EXCLUSIONS_PATH);
 
       const tier1 = [...new Set(extractTier1Words(tier1ZipPath))]
         .filter((w) => w.length >= 3 && w.length <= 7)
         .filter((w) => !blocklist.has(w))
+        .filter((w) => !tier1Exclusions.has(w))
         .sort();
 
       const tier2 = [...new Set(extractTier2Words(tier2TxtPath))]

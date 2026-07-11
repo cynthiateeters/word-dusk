@@ -40,6 +40,16 @@ recorded value below before reuse, and the script fails loudly on mismatch.
   applied to both tiers before any level is generated. Curated, not downloaded — no license
   concerns.
 
+**Tier 1 exclusions**
+
+- `scripts/tier1-exclusions.txt`: a hand-curated grid-word exclusion list, case-insensitive exact
+  match, applied to tier 1 only (tier 2 is unaffected, so an excluded word remains a valid bonus
+  word if formable). This is the standing mechanism for "that's not a word" grid-word reports going
+  forward: append the word, rebuild tiers, regenerate with the recorded seed — never hand-edit
+  `levels.json`. Seeded with `ope` (archaic for "open") and `nus` (plural of the Greek letter),
+  both flagged during H1 review as real-but-obscure words that carried no `%`/`!` marker in the
+  12dicts source and so weren't caught by the marker-based filter alone.
+
 ## Regeneration
 
 ```
