@@ -1,91 +1,3109 @@
 {
   "schemaVersion": 1,
-  "generator": { "seed": null, "version": "hand-ported" },
+  "generator": {
+    "seed": 1,
+    "version": "1.0.0"
+  },
   "levels": [
     {
       "id": 1,
-      "name": "Dusk",
-      "letters": ["T", "E", "A", "M"],
-      "grid": [
-        { "word": "MATE", "row": 0, "col": 0, "dir": "across" },
-        { "word": "MEAT", "row": 0, "col": 0, "dir": "down" },
-        { "word": "TEAM", "row": 0, "col": 2, "dir": "down" },
-        { "word": "TAME", "row": 3, "col": 0, "dir": "across" }
+      "name": "Level 1",
+      "letters": [
+        "B",
+        "A",
+        "R",
+        "N"
       ],
-      "bonus": ["ATE", "EAT", "ETA", "MAT", "MET", "TAM", "TEA"]
+      "grid": [
+        {
+          "word": "BARN",
+          "row": 0,
+          "col": 0,
+          "dir": "across"
+        },
+        {
+          "word": "BRA",
+          "row": 0,
+          "col": 0,
+          "dir": "down"
+        },
+        {
+          "word": "BRAN",
+          "row": 0,
+          "col": 0,
+          "dir": "down"
+        },
+        {
+          "word": "RAN",
+          "row": 1,
+          "col": 0,
+          "dir": "down"
+        },
+        {
+          "word": "NAB",
+          "row": 3,
+          "col": 0,
+          "dir": "across"
+        },
+        {
+          "word": "BAN",
+          "row": 3,
+          "col": 2,
+          "dir": "down"
+        },
+        {
+          "word": "BAR",
+          "row": -2,
+          "col": 2,
+          "dir": "down"
+        }
+      ],
+      "bonus": [
+        "ARB"
+      ]
     },
     {
       "id": 2,
-      "name": "Pine",
-      "letters": ["S", "T", "O", "N", "E"],
+      "name": "Level 2",
+      "letters": [
+        "L",
+        "O",
+        "P",
+        "S"
+      ],
       "grid": [
-        { "word": "STONE", "row": 0, "col": 0, "dir": "across" },
-        { "word": "SENT", "row": 0, "col": 0, "dir": "down" },
-        { "word": "ONSET", "row": 0, "col": 2, "dir": "down" },
-        { "word": "EON", "row": 0, "col": 4, "dir": "down" },
-        { "word": "TOES", "row": 3, "col": 0, "dir": "across" }
+        {
+          "word": "LOPS",
+          "row": 0,
+          "col": 0,
+          "dir": "across"
+        },
+        {
+          "word": "LOP",
+          "row": 0,
+          "col": 0,
+          "dir": "down"
+        },
+        {
+          "word": "OPS",
+          "row": 0,
+          "col": 1,
+          "dir": "across"
+        },
+        {
+          "word": "SOL",
+          "row": 0,
+          "col": 3,
+          "dir": "down"
+        },
+        {
+          "word": "SOP",
+          "row": -2,
+          "col": 2,
+          "dir": "down"
+        },
+        {
+          "word": "SLOP",
+          "row": -2,
+          "col": 2,
+          "dir": "across"
+        }
       ],
       "bonus": [
-        "EONS", "NEST", "NET", "NETS", "NOSE", "NOT", "NOTE", "NOTES",
-        "ONE", "ONES", "SET", "SNOT", "SON", "SOT", "TEN", "TENS",
-        "TOE", "TON", "TONE", "TONES", "TONS"
+        "POL",
+        "POLS"
       ]
     },
     {
       "id": 3,
-      "name": "Ridge",
-      "letters": ["B", "R", "E", "A", "D"],
+      "name": "Level 3",
+      "letters": [
+        "R",
+        "I",
+        "M",
+        "E"
+      ],
       "grid": [
-        { "word": "BEARD", "row": 0, "col": 0, "dir": "across" },
-        { "word": "BREAD", "row": 0, "col": 0, "dir": "down" },
-        { "word": "RED", "row": 0, "col": 3, "dir": "down" },
-        { "word": "DARE", "row": 4, "col": 0, "dir": "across" }
+        {
+          "word": "RIME",
+          "row": 0,
+          "col": 0,
+          "dir": "across"
+        },
+        {
+          "word": "MIRE",
+          "row": -1,
+          "col": 1,
+          "dir": "down"
+        },
+        {
+          "word": "REM",
+          "row": -1,
+          "col": 3,
+          "dir": "down"
+        },
+        {
+          "word": "RIM",
+          "row": -1,
+          "col": 3,
+          "dir": "across"
+        },
+        {
+          "word": "IRE",
+          "row": 0,
+          "col": 1,
+          "dir": "down"
+        },
+        {
+          "word": "EMIR",
+          "row": -2,
+          "col": 5,
+          "dir": "down"
+        }
       ],
       "bonus": [
-        "ARE", "BAD", "BAR", "BARD", "BARE", "BARED", "BEAD", "BEAR",
-        "BED", "BRA", "BRAD", "BRED", "DAB", "DEAR", "DEBAR", "DRAB",
-        "EAR", "ERA", "RAD", "READ"
+        "MIR",
+        "REI"
       ]
     },
     {
       "id": 4,
-      "name": "Summit",
-      "letters": ["P", "L", "A", "N", "E", "T"],
+      "name": "Level 4",
+      "letters": [
+        "P",
+        "A",
+        "R",
+        "T"
+      ],
       "grid": [
-        { "word": "PLANET", "row": 0, "col": 0, "dir": "across" },
-        { "word": "PLATE", "row": 0, "col": 0, "dir": "down" },
-        { "word": "ANTE", "row": 0, "col": 2, "dir": "down" },
-        { "word": "TEAL", "row": 0, "col": 5, "dir": "down" },
-        { "word": "APT", "row": 2, "col": 0, "dir": "across" }
+        {
+          "word": "PART",
+          "row": 0,
+          "col": 0,
+          "dir": "across"
+        },
+        {
+          "word": "RAP",
+          "row": 0,
+          "col": 2,
+          "dir": "down"
+        },
+        {
+          "word": "TRAP",
+          "row": -1,
+          "col": 2,
+          "dir": "down"
+        },
+        {
+          "word": "PAR",
+          "row": 2,
+          "col": 2,
+          "dir": "across"
+        },
+        {
+          "word": "ART",
+          "row": 0,
+          "col": 1,
+          "dir": "across"
+        },
+        {
+          "word": "RAPT",
+          "row": 2,
+          "col": 4,
+          "dir": "down"
+        },
+        {
+          "word": "APT",
+          "row": -1,
+          "col": 0,
+          "dir": "down"
+        }
       ],
       "bonus": [
-        "ALE", "ANT", "APE", "ATE", "EAT", "ELAN", "ETA", "LANE", "LAP",
-        "LATE", "LEAN", "LEAP", "LEAPT", "LENT", "LET", "NAP", "NAPE",
-        "NEAP", "NEAT", "NET", "PAL", "PALE", "PAN", "PANE", "PANEL",
-        "PANT", "PAT", "PATE", "PEA", "PEAL", "PEAT", "PEN", "PENAL",
-        "PET", "PETAL", "PLAN", "PLANE", "PLANT", "PLEA", "PLEAT",
-        "TALE", "TAN", "TAP", "TAPE", "TEA", "TEN"
+        "PAT",
+        "PRAT",
+        "RAT",
+        "TAP",
+        "TAR",
+        "TARP"
       ]
     },
     {
       "id": 5,
-      "name": "Aurora",
-      "letters": ["M", "A", "S", "T", "E", "R"],
+      "name": "Level 5",
+      "letters": [
+        "I",
+        "R",
+        "E",
+        "S"
+      ],
       "grid": [
-        { "word": "MASTER", "row": 0, "col": 0, "dir": "across" },
-        { "word": "MEATS", "row": 0, "col": 0, "dir": "down" },
-        { "word": "STEAM", "row": 0, "col": 2, "dir": "down" },
-        { "word": "EAST", "row": 0, "col": 4, "dir": "down" }
+        {
+          "word": "IRES",
+          "row": 0,
+          "col": 0,
+          "dir": "across"
+        },
+        {
+          "word": "SIR",
+          "row": 0,
+          "col": 3,
+          "dir": "down"
+        },
+        {
+          "word": "RISE",
+          "row": 0,
+          "col": 1,
+          "dir": "down"
+        },
+        {
+          "word": "IRE",
+          "row": 3,
+          "col": -1,
+          "dir": "across"
+        },
+        {
+          "word": "RES",
+          "row": 0,
+          "col": 1,
+          "dir": "across"
+        },
+        {
+          "word": "SIRE",
+          "row": 0,
+          "col": 3,
+          "dir": "down"
+        }
       ],
       "bonus": [
-        "ARM", "ARMS", "ART", "ARTS", "ASTER", "ATE", "EAR", "EARS",
-        "EAT", "EATS", "ERA", "ERAS", "MARE", "MARES", "MARS", "MART",
-        "MARTS", "MAST", "MAT", "MATE", "MATES", "MATS", "MEAT", "MESA",
-        "MET", "RAM", "RAMS", "RAT", "RATE", "RATES", "RATS", "REST",
-        "SAME", "SAT", "SEA", "SEAM", "SEAR", "SEAT", "SET", "SMART",
-        "SMEAR", "STAR", "STARE", "STREAM", "TAM", "TAME", "TAMER",
-        "TAMERS", "TAMES", "TAR", "TARS", "TEA", "TEAM", "TEAMS",
-        "TEAR", "TEARS", "TEAS", "TERM", "TERMS", "TRAM", "TRAMS"
+        "ERS",
+        "REI",
+        "REIS",
+        "SEI",
+        "SER",
+        "SRI"
+      ]
+    },
+    {
+      "id": 6,
+      "name": "Level 6",
+      "letters": [
+        "N",
+        "A",
+        "B",
+        "S"
+      ],
+      "grid": [
+        {
+          "word": "NABS",
+          "row": 0,
+          "col": 0,
+          "dir": "across"
+        },
+        {
+          "word": "BANS",
+          "row": 0,
+          "col": 2,
+          "dir": "down"
+        },
+        {
+          "word": "BAN",
+          "row": 2,
+          "col": 0,
+          "dir": "across"
+        },
+        {
+          "word": "ABS",
+          "row": 0,
+          "col": 1,
+          "dir": "across"
+        },
+        {
+          "word": "NAB",
+          "row": 0,
+          "col": 0,
+          "dir": "down"
+        }
+      ],
+      "bonus": [
+        "BAS",
+        "SAB"
+      ]
+    },
+    {
+      "id": 7,
+      "name": "Level 7",
+      "letters": [
+        "P",
+        "U",
+        "N",
+        "T"
+      ],
+      "grid": [
+        {
+          "word": "PUNT",
+          "row": 0,
+          "col": 0,
+          "dir": "across"
+        },
+        {
+          "word": "PUN",
+          "row": -2,
+          "col": 2,
+          "dir": "down"
+        },
+        {
+          "word": "PUT",
+          "row": 0,
+          "col": 0,
+          "dir": "down"
+        },
+        {
+          "word": "NUT",
+          "row": 2,
+          "col": -2,
+          "dir": "across"
+        },
+        {
+          "word": "TUN",
+          "row": 0,
+          "col": 3,
+          "dir": "down"
+        }
+      ],
+      "bonus": [
+        "TUP"
+      ]
+    },
+    {
+      "id": 8,
+      "name": "Level 8",
+      "letters": [
+        "F",
+        "A",
+        "R",
+        "M"
+      ],
+      "grid": [
+        {
+          "word": "FARM",
+          "row": 0,
+          "col": 0,
+          "dir": "across"
+        },
+        {
+          "word": "MAR",
+          "row": -2,
+          "col": 2,
+          "dir": "down"
+        },
+        {
+          "word": "RAM",
+          "row": -2,
+          "col": 0,
+          "dir": "across"
+        },
+        {
+          "word": "ARM",
+          "row": 0,
+          "col": 1,
+          "dir": "across"
+        },
+        {
+          "word": "FAR",
+          "row": 0,
+          "col": 0,
+          "dir": "down"
+        }
+      ],
+      "bonus": [
+        "ARF"
+      ]
+    },
+    {
+      "id": 9,
+      "name": "Level 9",
+      "letters": [
+        "P",
+        "O",
+        "N",
+        "E",
+        "S"
+      ],
+      "grid": [
+        {
+          "word": "PONES",
+          "row": 0,
+          "col": 0,
+          "dir": "across"
+        },
+        {
+          "word": "OPE",
+          "row": -2,
+          "col": 3,
+          "dir": "down"
+        },
+        {
+          "word": "PESO",
+          "row": 0,
+          "col": 0,
+          "dir": "down"
+        },
+        {
+          "word": "OPENS",
+          "row": -2,
+          "col": 3,
+          "dir": "across"
+        },
+        {
+          "word": "NOS",
+          "row": 3,
+          "col": -1,
+          "dir": "across"
+        },
+        {
+          "word": "OPEN",
+          "row": -2,
+          "col": 3,
+          "dir": "down"
+        },
+        {
+          "word": "PEN",
+          "row": -1,
+          "col": 3,
+          "dir": "down"
+        }
+      ],
+      "bonus": [
+        "ENS",
+        "EON",
+        "EONS",
+        "EPOS",
+        "NOES",
+        "NOPE",
+        "NOSE",
+        "OES",
+        "ONE",
+        "ONES",
+        "ONS",
+        "OPES",
+        "OPS",
+        "OSE",
+        "PENS",
+        "PEON",
+        "PEONS",
+        "PES",
+        "PONE",
+        "PONS",
+        "POSE",
+        "SEN",
+        "SON",
+        "SONE",
+        "SOP"
+      ]
+    },
+    {
+      "id": 10,
+      "name": "Level 10",
+      "letters": [
+        "F",
+        "O",
+        "N",
+        "T",
+        "S"
+      ],
+      "grid": [
+        {
+          "word": "FONTS",
+          "row": 0,
+          "col": 0,
+          "dir": "across"
+        },
+        {
+          "word": "SNOT",
+          "row": -3,
+          "col": 3,
+          "dir": "down"
+        },
+        {
+          "word": "SOFT",
+          "row": -1,
+          "col": 1,
+          "dir": "down"
+        },
+        {
+          "word": "NOT",
+          "row": -2,
+          "col": 3,
+          "dir": "down"
+        },
+        {
+          "word": "TONS",
+          "row": -3,
+          "col": 0,
+          "dir": "across"
+        },
+        {
+          "word": "NOS",
+          "row": -2,
+          "col": 3,
+          "dir": "across"
+        },
+        {
+          "word": "OFT",
+          "row": 0,
+          "col": 1,
+          "dir": "down"
+        }
+      ],
+      "bonus": [
+        "FON",
+        "FONS",
+        "FONT",
+        "ONS",
+        "SON",
+        "SOT",
+        "TON"
+      ]
+    },
+    {
+      "id": 11,
+      "name": "Level 11",
+      "letters": [
+        "D",
+        "O",
+        "P",
+        "E",
+        "Y"
+      ],
+      "grid": [
+        {
+          "word": "DOPEY",
+          "row": 0,
+          "col": 0,
+          "dir": "across"
+        },
+        {
+          "word": "OPE",
+          "row": -1,
+          "col": 2,
+          "dir": "down"
+        },
+        {
+          "word": "YEP",
+          "row": 0,
+          "col": 4,
+          "dir": "down"
+        },
+        {
+          "word": "OPED",
+          "row": 2,
+          "col": 3,
+          "dir": "across"
+        },
+        {
+          "word": "POD",
+          "row": 0,
+          "col": 6,
+          "dir": "down"
+        },
+        {
+          "word": "DOPE",
+          "row": 0,
+          "col": 0,
+          "dir": "down"
+        },
+        {
+          "word": "DOPY",
+          "row": 2,
+          "col": -2,
+          "dir": "across"
+        }
+      ],
+      "bonus": [
+        "DEY",
+        "DOE",
+        "DYE",
+        "ODE",
+        "PED",
+        "PYE",
+        "YOD"
+      ]
+    },
+    {
+      "id": 12,
+      "name": "Level 12",
+      "letters": [
+        "S",
+        "W",
+        "I",
+        "M",
+        "S"
+      ],
+      "grid": [
+        {
+          "word": "SWIMS",
+          "row": 0,
+          "col": 0,
+          "dir": "across"
+        },
+        {
+          "word": "ISMS",
+          "row": -3,
+          "col": 0,
+          "dir": "down"
+        },
+        {
+          "word": "SWIM",
+          "row": 0,
+          "col": 4,
+          "dir": "down"
+        },
+        {
+          "word": "SIS",
+          "row": -2,
+          "col": 0,
+          "dir": "across"
+        },
+        {
+          "word": "MISS",
+          "row": 3,
+          "col": 4,
+          "dir": "across"
+        },
+        {
+          "word": "MIS",
+          "row": 1,
+          "col": 6,
+          "dir": "down"
+        },
+        {
+          "word": "ISM",
+          "row": 0,
+          "col": 2,
+          "dir": "down"
+        }
+      ],
+      "bonus": [
+        "SIM",
+        "SIMS",
+        "WIS",
+        "WISS"
+      ]
+    },
+    {
+      "id": 13,
+      "name": "Level 13",
+      "letters": [
+        "W",
+        "H",
+        "A",
+        "L",
+        "E"
+      ],
+      "grid": [
+        {
+          "word": "WHALE",
+          "row": 0,
+          "col": 0,
+          "dir": "across"
+        },
+        {
+          "word": "AWE",
+          "row": 0,
+          "col": 2,
+          "dir": "down"
+        },
+        {
+          "word": "WHEAL",
+          "row": -2,
+          "col": 4,
+          "dir": "down"
+        },
+        {
+          "word": "HEAL",
+          "row": 2,
+          "col": 1,
+          "dir": "across"
+        },
+        {
+          "word": "HALE",
+          "row": 2,
+          "col": 1,
+          "dir": "down"
+        },
+        {
+          "word": "HEW",
+          "row": -2,
+          "col": 2,
+          "dir": "across"
+        },
+        {
+          "word": "ALE",
+          "row": 3,
+          "col": 1,
+          "dir": "down"
+        }
+      ],
+      "bonus": [
+        "AWL",
+        "HAE",
+        "HAW",
+        "LAW",
+        "LEA",
+        "WAE",
+        "WALE",
+        "WEAL",
+        "WHA"
+      ]
+    },
+    {
+      "id": 14,
+      "name": "Level 14",
+      "letters": [
+        "W",
+        "E",
+        "L",
+        "C",
+        "H"
+      ],
+      "grid": [
+        {
+          "word": "WELCH",
+          "row": 0,
+          "col": 0,
+          "dir": "across"
+        },
+        {
+          "word": "CLEW",
+          "row": -2,
+          "col": 1,
+          "dir": "down"
+        },
+        {
+          "word": "CHEW",
+          "row": -2,
+          "col": 1,
+          "dir": "across"
+        },
+        {
+          "word": "HEW",
+          "row": -2,
+          "col": 2,
+          "dir": "across"
+        },
+        {
+          "word": "LECH",
+          "row": -5,
+          "col": 2,
+          "dir": "down"
+        }
+      ],
+      "bonus": [
+        "CEL"
+      ]
+    },
+    {
+      "id": 15,
+      "name": "Level 15",
+      "letters": [
+        "E",
+        "W",
+        "E",
+        "R",
+        "S"
+      ],
+      "grid": [
+        {
+          "word": "EWERS",
+          "row": 0,
+          "col": 0,
+          "dir": "across"
+        },
+        {
+          "word": "WERE",
+          "row": -1,
+          "col": 2,
+          "dir": "down"
+        },
+        {
+          "word": "SEWER",
+          "row": 2,
+          "col": -1,
+          "dir": "across"
+        },
+        {
+          "word": "SERE",
+          "row": 2,
+          "col": -1,
+          "dir": "down"
+        },
+        {
+          "word": "RESEW",
+          "row": 5,
+          "col": -4,
+          "dir": "across"
+        },
+        {
+          "word": "SEER",
+          "row": 2,
+          "col": -4,
+          "dir": "down"
+        },
+        {
+          "word": "SEE",
+          "row": -2,
+          "col": 0,
+          "dir": "down"
+        }
+      ],
+      "bonus": [
+        "ERE",
+        "ERS",
+        "EWE",
+        "EWER",
+        "EWES",
+        "REE",
+        "REES",
+        "RES",
+        "SER",
+        "SEW",
+        "SWEER",
+        "WEE",
+        "WEER",
+        "WEES"
+      ]
+    },
+    {
+      "id": 16,
+      "name": "Level 16",
+      "letters": [
+        "F",
+        "U",
+        "N",
+        "D",
+        "S"
+      ],
+      "grid": [
+        {
+          "word": "FUNDS",
+          "row": 0,
+          "col": 0,
+          "dir": "across"
+        },
+        {
+          "word": "SUN",
+          "row": -2,
+          "col": 2,
+          "dir": "down"
+        },
+        {
+          "word": "DUNS",
+          "row": -2,
+          "col": -1,
+          "dir": "across"
+        },
+        {
+          "word": "NUS",
+          "row": -2,
+          "col": 4,
+          "dir": "down"
+        },
+        {
+          "word": "FUN",
+          "row": 0,
+          "col": 0,
+          "dir": "down"
+        },
+        {
+          "word": "FUNS",
+          "row": 0,
+          "col": 0,
+          "dir": "down"
+        },
+        {
+          "word": "FUND",
+          "row": 2,
+          "col": -2,
+          "dir": "across"
+        }
+      ],
+      "bonus": [
+        "DUN",
+        "FUD",
+        "FUDS",
+        "UNS"
+      ]
+    },
+    {
+      "id": 17,
+      "name": "Level 17",
+      "letters": [
+        "C",
+        "A",
+        "B",
+        "A",
+        "L"
+      ],
+      "grid": [
+        {
+          "word": "CABAL",
+          "row": 0,
+          "col": 0,
+          "dir": "across"
+        },
+        {
+          "word": "BAA",
+          "row": -1,
+          "col": 3,
+          "dir": "down"
+        },
+        {
+          "word": "ALB",
+          "row": 0,
+          "col": 1,
+          "dir": "down"
+        },
+        {
+          "word": "CAB",
+          "row": 2,
+          "col": -1,
+          "dir": "across"
+        },
+        {
+          "word": "LAC",
+          "row": -2,
+          "col": 0,
+          "dir": "down"
+        }
+      ],
+      "bonus": [
+        "AAL",
+        "ABA",
+        "ALA",
+        "ALBA",
+        "BAAL",
+        "BAL",
+        "LAB"
+      ]
+    },
+    {
+      "id": 18,
+      "name": "Level 18",
+      "letters": [
+        "B",
+        "R",
+        "O",
+        "K",
+        "E"
+      ],
+      "grid": [
+        {
+          "word": "BROKE",
+          "row": 0,
+          "col": 0,
+          "dir": "across"
+        },
+        {
+          "word": "ROB",
+          "row": -2,
+          "col": 0,
+          "dir": "down"
+        },
+        {
+          "word": "KERB",
+          "row": -1,
+          "col": 4,
+          "dir": "down"
+        },
+        {
+          "word": "ORE",
+          "row": -2,
+          "col": -1,
+          "dir": "across"
+        },
+        {
+          "word": "ROBE",
+          "row": 2,
+          "col": 2,
+          "dir": "across"
+        },
+        {
+          "word": "BRO",
+          "row": -4,
+          "col": -1,
+          "dir": "down"
+        },
+        {
+          "word": "BORE",
+          "row": -5,
+          "col": 1,
+          "dir": "down"
+        }
+      ],
+      "bonus": [
+        "KOB",
+        "KOR",
+        "KORE",
+        "OBE",
+        "OKE",
+        "ORB",
+        "REB",
+        "ROE"
+      ]
+    },
+    {
+      "id": 19,
+      "name": "Level 19",
+      "letters": [
+        "B",
+        "I",
+        "N",
+        "D",
+        "S"
+      ],
+      "grid": [
+        {
+          "word": "BINDS",
+          "row": 0,
+          "col": 0,
+          "dir": "across"
+        },
+        {
+          "word": "IDS",
+          "row": 0,
+          "col": 1,
+          "dir": "down"
+        },
+        {
+          "word": "NIBS",
+          "row": 2,
+          "col": -2,
+          "dir": "across"
+        },
+        {
+          "word": "BIS",
+          "row": -2,
+          "col": 4,
+          "dir": "down"
+        },
+        {
+          "word": "BIND",
+          "row": 2,
+          "col": 0,
+          "dir": "down"
+        },
+        {
+          "word": "BIN",
+          "row": -2,
+          "col": 4,
+          "dir": "across"
+        },
+        {
+          "word": "BIDS",
+          "row": -1,
+          "col": 1,
+          "dir": "down"
+        }
+      ],
+      "bonus": [
+        "BID",
+        "BINS",
+        "DIB",
+        "DIBS",
+        "DIN",
+        "DINS",
+        "DIS",
+        "INS",
+        "NIB",
+        "SIB",
+        "SIN",
+        "SNIB"
+      ]
+    },
+    {
+      "id": 20,
+      "name": "Level 20",
+      "letters": [
+        "P",
+        "U",
+        "L",
+        "L",
+        "S"
+      ],
+      "grid": [
+        {
+          "word": "PULLS",
+          "row": 0,
+          "col": 0,
+          "dir": "across"
+        },
+        {
+          "word": "UPS",
+          "row": -1,
+          "col": 0,
+          "dir": "down"
+        },
+        {
+          "word": "PLUS",
+          "row": -1,
+          "col": 3,
+          "dir": "down"
+        },
+        {
+          "word": "SUP",
+          "row": 2,
+          "col": 3,
+          "dir": "across"
+        },
+        {
+          "word": "PUS",
+          "row": 2,
+          "col": 5,
+          "dir": "down"
+        }
+      ],
+      "bonus": [
+        "PUL",
+        "PULL",
+        "PULS"
+      ]
+    },
+    {
+      "id": 21,
+      "name": "Level 21",
+      "letters": [
+        "L",
+        "O",
+        "S",
+        "S",
+        "E",
+        "S"
+      ],
+      "grid": [
+        {
+          "word": "LOSSES",
+          "row": 0,
+          "col": 0,
+          "dir": "across"
+        },
+        {
+          "word": "LOSS",
+          "row": -2,
+          "col": 2,
+          "dir": "down"
+        },
+        {
+          "word": "SOLE",
+          "row": -2,
+          "col": 0,
+          "dir": "across"
+        },
+        {
+          "word": "LOSES",
+          "row": 0,
+          "col": 0,
+          "dir": "down"
+        },
+        {
+          "word": "OLE",
+          "row": -2,
+          "col": 1,
+          "dir": "across"
+        },
+        {
+          "word": "SLOE",
+          "row": 4,
+          "col": 0,
+          "dir": "across"
+        },
+        {
+          "word": "OLES",
+          "row": 2,
+          "col": -3,
+          "dir": "across"
+        }
+      ],
+      "bonus": [
+        "ELS",
+        "ESS",
+        "LESS",
+        "LOESS",
+        "LOSE",
+        "OES",
+        "OSE",
+        "OSES",
+        "SEL",
+        "SELS",
+        "SLOES",
+        "SOL",
+        "SOLES",
+        "SOLS",
+        "SOS"
+      ]
+    },
+    {
+      "id": 22,
+      "name": "Level 22",
+      "letters": [
+        "F",
+        "I",
+        "C",
+        "K",
+        "L",
+        "E"
+      ],
+      "grid": [
+        {
+          "word": "FICKLE",
+          "row": 0,
+          "col": 0,
+          "dir": "across"
+        },
+        {
+          "word": "FIE",
+          "row": -2,
+          "col": 5,
+          "dir": "down"
+        },
+        {
+          "word": "FLECK",
+          "row": -4,
+          "col": 3,
+          "dir": "down"
+        },
+        {
+          "word": "ICE",
+          "row": -1,
+          "col": 5,
+          "dir": "across"
+        },
+        {
+          "word": "ILK",
+          "row": -3,
+          "col": 2,
+          "dir": "across"
+        },
+        {
+          "word": "CLEF",
+          "row": -3,
+          "col": 7,
+          "dir": "down"
+        },
+        {
+          "word": "LICE",
+          "row": 0,
+          "col": 4,
+          "dir": "down"
+        }
+      ],
+      "bonus": [
+        "CEIL",
+        "CEL",
+        "ELF",
+        "ELK",
+        "FECK",
+        "FICE",
+        "FIL",
+        "FILE",
+        "FLIC",
+        "FLICK",
+        "ICK",
+        "KEF",
+        "KIEF",
+        "KIF",
+        "LEI",
+        "LEK",
+        "LICK",
+        "LIE",
+        "LIEF",
+        "LIFE",
+        "LIKE"
+      ]
+    },
+    {
+      "id": 23,
+      "name": "Level 23",
+      "letters": [
+        "M",
+        "I",
+        "A",
+        "S",
+        "M",
+        "A"
+      ],
+      "grid": [
+        {
+          "word": "MIASMA",
+          "row": 0,
+          "col": 0,
+          "dir": "across"
+        },
+        {
+          "word": "MAS",
+          "row": -1,
+          "col": 5,
+          "dir": "down"
+        },
+        {
+          "word": "ISM",
+          "row": -1,
+          "col": 3,
+          "dir": "down"
+        },
+        {
+          "word": "AIM",
+          "row": -2,
+          "col": 0,
+          "dir": "down"
+        },
+        {
+          "word": "MAMAS",
+          "row": -3,
+          "col": 5,
+          "dir": "down"
+        },
+        {
+          "word": "MAMA",
+          "row": -1,
+          "col": 5,
+          "dir": "across"
+        },
+        {
+          "word": "MIS",
+          "row": -1,
+          "col": 7,
+          "dir": "down"
+        }
+      ],
+      "bonus": [
+        "AAS",
+        "AIMS",
+        "AIS",
+        "AMA",
+        "AMAS",
+        "AMI",
+        "AMIA",
+        "AMIAS",
+        "AMIS",
+        "IMAM",
+        "IMAMS",
+        "MAIM",
+        "MAIMS",
+        "MIASM",
+        "MIM",
+        "SIM",
+        "SIMA"
+      ]
+    },
+    {
+      "id": 24,
+      "name": "Level 24",
+      "letters": [
+        "K",
+        "H",
+        "A",
+        "K",
+        "I",
+        "S"
+      ],
+      "grid": [
+        {
+          "word": "KHAKIS",
+          "row": 0,
+          "col": 0,
+          "dir": "across"
+        },
+        {
+          "word": "KHAKI",
+          "row": -3,
+          "col": 3,
+          "dir": "down"
+        },
+        {
+          "word": "HAS",
+          "row": 0,
+          "col": 1,
+          "dir": "down"
+        },
+        {
+          "word": "ASK",
+          "row": -1,
+          "col": 5,
+          "dir": "down"
+        },
+        {
+          "word": "ASH",
+          "row": 2,
+          "col": 0,
+          "dir": "across"
+        },
+        {
+          "word": "SAKI",
+          "row": -3,
+          "col": 1,
+          "dir": "across"
+        },
+        {
+          "word": "SKI",
+          "row": -5,
+          "col": 4,
+          "dir": "down"
+        }
+      ],
+      "bonus": [
+        "AIS",
+        "HAIK",
+        "HAIKS",
+        "HIS",
+        "KAKI",
+        "KAKIS",
+        "KAS",
+        "KHI",
+        "KHIS",
+        "KISHKA",
+        "SHA",
+        "SKA"
+      ]
+    },
+    {
+      "id": 25,
+      "name": "Level 25",
+      "letters": [
+        "V",
+        "A",
+        "N",
+        "I",
+        "S",
+        "H"
+      ],
+      "grid": [
+        {
+          "word": "VANISH",
+          "row": 0,
+          "col": 0,
+          "dir": "across"
+        },
+        {
+          "word": "HIS",
+          "row": -1,
+          "col": 3,
+          "dir": "down"
+        },
+        {
+          "word": "SHIN",
+          "row": -1,
+          "col": 5,
+          "dir": "down"
+        },
+        {
+          "word": "ASH",
+          "row": 0,
+          "col": 1,
+          "dir": "down"
+        },
+        {
+          "word": "SHIV",
+          "row": -1,
+          "col": 5,
+          "dir": "across"
+        },
+        {
+          "word": "INS",
+          "row": 1,
+          "col": 5,
+          "dir": "across"
+        },
+        {
+          "word": "ANI",
+          "row": 0,
+          "col": 1,
+          "dir": "across"
+        }
+      ],
+      "bonus": [
+        "AIN",
+        "AINS",
+        "AIS",
+        "ANIS",
+        "HAS",
+        "HIN",
+        "HINS",
+        "HISN",
+        "NAH",
+        "SAIN",
+        "SAVIN",
+        "SHA",
+        "SHIVA",
+        "SIN",
+        "SINH",
+        "VAIN",
+        "VAN",
+        "VANS",
+        "VAS",
+        "VIA",
+        "VINA",
+        "VINAS",
+        "VIS",
+        "VISA"
+      ]
+    },
+    {
+      "id": 26,
+      "name": "Level 26",
+      "letters": [
+        "S",
+        "C",
+        "R",
+        "E",
+        "A",
+        "M"
+      ],
+      "grid": [
+        {
+          "word": "SCREAM",
+          "row": 0,
+          "col": 0,
+          "dir": "across"
+        },
+        {
+          "word": "MESA",
+          "row": -2,
+          "col": 0,
+          "dir": "down"
+        },
+        {
+          "word": "ACES",
+          "row": 0,
+          "col": 4,
+          "dir": "down"
+        },
+        {
+          "word": "RACE",
+          "row": -3,
+          "col": 3,
+          "dir": "down"
+        },
+        {
+          "word": "SCAR",
+          "row": 3,
+          "col": 4,
+          "dir": "across"
+        },
+        {
+          "word": "ERA",
+          "row": 2,
+          "col": 7,
+          "dir": "down"
+        },
+        {
+          "word": "ACME",
+          "row": -2,
+          "col": 3,
+          "dir": "across"
+        }
+      ],
+      "bonus": [
+        "ACE",
+        "ACMES",
+        "ACRE",
+        "ACRES",
+        "ARC",
+        "ARCS",
+        "ARE",
+        "ARES",
+        "ARM",
+        "ARMS",
+        "ARS",
+        "CAM",
+        "CAME",
+        "CAMES",
+        "CAMS",
+        "CAR",
+        "CARE",
+        "CARES",
+        "CARS",
+        "CARSE",
+        "CASE",
+        "CRAM",
+        "CRAMS",
+        "CREAM",
+        "CREAMS",
+        "EAR",
+        "EARS",
+        "EMS",
+        "ERAS",
+        "ERS",
+        "ESCAR",
+        "MAC",
+        "MACE",
+        "MACER",
+        "MACERS",
+        "MACES",
+        "MACS",
+        "MAE",
+        "MAES",
+        "MAR",
+        "MARC",
+        "MARCS",
+        "MARE",
+        "MARES",
+        "MARS",
+        "MARSE",
+        "MAS",
+        "MASER",
+        "RACES",
+        "RAM",
+        "RAMS",
+        "RAS",
+        "RASE",
+        "REAM",
+        "REAMS",
+        "REC",
+        "RECS",
+        "REM",
+        "REMS",
+        "RES",
+        "SAC",
+        "SAE",
+        "SAME",
+        "SCAM",
+        "SCARE",
+        "SCRAM",
+        "SEA",
+        "SEAM",
+        "SEAR",
+        "SEC",
+        "SER",
+        "SERA",
+        "SERAC",
+        "SMEAR"
+      ]
+    },
+    {
+      "id": 27,
+      "name": "Level 27",
+      "letters": [
+        "D",
+        "E",
+        "T",
+        "E",
+        "S",
+        "T"
+      ],
+      "grid": [
+        {
+          "word": "DETEST",
+          "row": 0,
+          "col": 0,
+          "dir": "across"
+        },
+        {
+          "word": "STET",
+          "row": -1,
+          "col": 5,
+          "dir": "down"
+        },
+        {
+          "word": "SET",
+          "row": -1,
+          "col": 3,
+          "dir": "down"
+        },
+        {
+          "word": "SEED",
+          "row": -1,
+          "col": 1,
+          "dir": "down"
+        },
+        {
+          "word": "STEED",
+          "row": 2,
+          "col": -3,
+          "dir": "across"
+        },
+        {
+          "word": "EDS",
+          "row": 2,
+          "col": 0,
+          "dir": "down"
+        },
+        {
+          "word": "TESTED",
+          "row": -1,
+          "col": -2,
+          "dir": "down"
+        }
+      ],
+      "bonus": [
+        "DEE",
+        "DEES",
+        "DEET",
+        "DEETS",
+        "SEE",
+        "SETT",
+        "TED",
+        "TEDS",
+        "TEE",
+        "TEED",
+        "TEES",
+        "TEST",
+        "TET",
+        "TETS"
+      ]
+    },
+    {
+      "id": 28,
+      "name": "Level 28",
+      "letters": [
+        "S",
+        "H",
+        "O",
+        "U",
+        "L",
+        "D"
+      ],
+      "grid": [
+        {
+          "word": "SHOULD",
+          "row": 0,
+          "col": 0,
+          "dir": "across"
+        },
+        {
+          "word": "DOHS",
+          "row": -2,
+          "col": 1,
+          "dir": "down"
+        },
+        {
+          "word": "SOU",
+          "row": -2,
+          "col": 3,
+          "dir": "down"
+        },
+        {
+          "word": "DUH",
+          "row": 0,
+          "col": 5,
+          "dir": "down"
+        },
+        {
+          "word": "HOLD",
+          "row": 2,
+          "col": 5,
+          "dir": "across"
+        },
+        {
+          "word": "LUSH",
+          "row": 2,
+          "col": 7,
+          "dir": "down"
+        },
+        {
+          "word": "OLD",
+          "row": 2,
+          "col": 6,
+          "dir": "across"
+        }
+      ],
+      "bonus": [
+        "DOL",
+        "DOLS",
+        "DOS",
+        "DUO",
+        "DUOS",
+        "HOD",
+        "HODS",
+        "HOLDS",
+        "HOLS",
+        "LOUD",
+        "ODS",
+        "OHS",
+        "OLDS",
+        "OUD",
+        "OUDS",
+        "SHOD",
+        "SHUL",
+        "SOD",
+        "SOL",
+        "SOLD",
+        "SOUL",
+        "UDO",
+        "UDOS"
+      ]
+    },
+    {
+      "id": 29,
+      "name": "Level 29",
+      "letters": [
+        "T",
+        "O",
+        "M",
+        "B",
+        "O",
+        "Y"
+      ],
+      "grid": [
+        {
+          "word": "TOMBOY",
+          "row": 0,
+          "col": 0,
+          "dir": "across"
+        },
+        {
+          "word": "BOOT",
+          "row": 0,
+          "col": 3,
+          "dir": "down"
+        },
+        {
+          "word": "BOO",
+          "row": 2,
+          "col": 1,
+          "dir": "across"
+        },
+        {
+          "word": "TOO",
+          "row": -2,
+          "col": 1,
+          "dir": "down"
+        },
+        {
+          "word": "TOY",
+          "row": 3,
+          "col": 3,
+          "dir": "across"
+        },
+        {
+          "word": "BOOM",
+          "row": 2,
+          "col": 1,
+          "dir": "down"
+        },
+        {
+          "word": "TOMB",
+          "row": 5,
+          "col": -1,
+          "dir": "across"
+        }
+      ],
+      "bonus": [
+        "BOOMY",
+        "BOOTY",
+        "BOT",
+        "BOY",
+        "BOYO",
+        "MOB",
+        "MOO",
+        "MOOT",
+        "MOT",
+        "OOT",
+        "TOBY",
+        "TOM",
+        "TOOM",
+        "TOYO",
+        "YOB",
+        "YOM"
+      ]
+    },
+    {
+      "id": 30,
+      "name": "Level 30",
+      "letters": [
+        "M",
+        "I",
+        "N",
+        "N",
+        "O",
+        "W"
+      ],
+      "grid": [
+        {
+          "word": "MINNOW",
+          "row": 0,
+          "col": 0,
+          "dir": "across"
+        },
+        {
+          "word": "WON",
+          "row": 0,
+          "col": 5,
+          "dir": "down"
+        },
+        {
+          "word": "WINO",
+          "row": 2,
+          "col": 3,
+          "dir": "across"
+        },
+        {
+          "word": "WIN",
+          "row": -1,
+          "col": 1,
+          "dir": "down"
+        },
+        {
+          "word": "INN",
+          "row": -2,
+          "col": 3,
+          "dir": "down"
+        },
+        {
+          "word": "NOW",
+          "row": 0,
+          "col": 3,
+          "dir": "across"
+        },
+        {
+          "word": "ION",
+          "row": 2,
+          "col": 4,
+          "dir": "down"
+        }
+      ],
+      "bonus": [
+        "MON",
+        "MOW",
+        "MOWN",
+        "NIM",
+        "NOM",
+        "OWN"
+      ]
+    },
+    {
+      "id": 31,
+      "name": "Level 31",
+      "letters": [
+        "A",
+        "I",
+        "M",
+        "I",
+        "N",
+        "G"
+      ],
+      "grid": [
+        {
+          "word": "AIMING",
+          "row": 0,
+          "col": 0,
+          "dir": "across"
+        },
+        {
+          "word": "GAMIN",
+          "row": -4,
+          "col": 4,
+          "dir": "down"
+        },
+        {
+          "word": "ANI",
+          "row": -3,
+          "col": 4,
+          "dir": "across"
+        },
+        {
+          "word": "AIM",
+          "row": -1,
+          "col": 1,
+          "dir": "down"
+        },
+        {
+          "word": "GIN",
+          "row": 0,
+          "col": 5,
+          "dir": "down"
+        },
+        {
+          "word": "MAG",
+          "row": -4,
+          "col": 2,
+          "dir": "across"
+        },
+        {
+          "word": "MINI",
+          "row": -4,
+          "col": 6,
+          "dir": "down"
+        }
+      ],
+      "bonus": [
+        "AGIN",
+        "AIN",
+        "AMI",
+        "AMIN",
+        "ANIMI",
+        "GAIN",
+        "GAM",
+        "GAN",
+        "INIA",
+        "MAGI",
+        "MAIN",
+        "MAN",
+        "MIG",
+        "MINA",
+        "NAG",
+        "NAM",
+        "NIM"
+      ]
+    },
+    {
+      "id": 32,
+      "name": "Level 32",
+      "letters": [
+        "C",
+        "O",
+        "U",
+        "L",
+        "E",
+        "E"
+      ],
+      "grid": [
+        {
+          "word": "COULEE",
+          "row": 0,
+          "col": 0,
+          "dir": "across"
+        },
+        {
+          "word": "EEL",
+          "row": -1,
+          "col": 4,
+          "dir": "down"
+        },
+        {
+          "word": "LEE",
+          "row": 0,
+          "col": 3,
+          "dir": "across"
+        },
+        {
+          "word": "OLE",
+          "row": 0,
+          "col": 1,
+          "dir": "down"
+        },
+        {
+          "word": "CLUE",
+          "row": 2,
+          "col": -2,
+          "dir": "across"
+        },
+        {
+          "word": "CUE",
+          "row": 2,
+          "col": -2,
+          "dir": "down"
+        }
+      ],
+      "bonus": [
+        "CEE",
+        "CEL",
+        "COL",
+        "COLE",
+        "ECU",
+        "LEU",
+        "LUCE"
+      ]
+    },
+    {
+      "id": 33,
+      "name": "Level 33",
+      "letters": [
+        "G",
+        "R",
+        "A",
+        "N",
+        "T",
+        "E",
+        "E"
+      ],
+      "grid": [
+        {
+          "word": "GRANTEE",
+          "row": 0,
+          "col": 0,
+          "dir": "across"
+        },
+        {
+          "word": "EAR",
+          "row": -1,
+          "col": 2,
+          "dir": "down"
+        },
+        {
+          "word": "RANGE",
+          "row": -3,
+          "col": 0,
+          "dir": "down"
+        },
+        {
+          "word": "EGRET",
+          "row": 0,
+          "col": 6,
+          "dir": "down"
+        },
+        {
+          "word": "NEAR",
+          "row": -2,
+          "col": -2,
+          "dir": "across"
+        },
+        {
+          "word": "ENTER",
+          "row": -3,
+          "col": -2,
+          "dir": "down"
+        },
+        {
+          "word": "ANT",
+          "row": 0,
+          "col": 2,
+          "dir": "across"
+        }
+      ],
+      "bonus": [
+        "AGE",
+        "AGEE",
+        "AGENE",
+        "AGENT",
+        "AGER",
+        "AGREE",
+        "ANE",
+        "ANGER",
+        "ANTE",
+        "ANTRE",
+        "ARE",
+        "ARETE",
+        "ARGENT",
+        "ART",
+        "ATE",
+        "EAGER",
+        "EAGRE",
+        "EARN",
+        "EAT",
+        "EATEN",
+        "EATER",
+        "EGER",
+        "ENATE",
+        "ENG",
+        "ENRAGE",
+        "ENTERA",
+        "ERA",
+        "ERE",
+        "ERG",
+        "ERGATE",
+        "ERN",
+        "ERNE",
+        "ETA",
+        "ETNA",
+        "GAE",
+        "GAEN",
+        "GAN",
+        "GANE",
+        "GAR",
+        "GARNET",
+        "GAT",
+        "GATE",
+        "GEAR",
+        "GEE",
+        "GEN",
+        "GENE",
+        "GENERA",
+        "GENET",
+        "GENRE",
+        "GENT",
+        "GERENT",
+        "GET",
+        "GETA",
+        "GNAR",
+        "GNAT",
+        "GRAN",
+        "GRANT",
+        "GRAT",
+        "GRATE",
+        "GREAT",
+        "GREATEN",
+        "GREE",
+        "GREEN",
+        "GREET",
+        "NAE",
+        "NAG",
+        "NEAT",
+        "NEATER",
+        "NEE",
+        "NEGATE",
+        "NEGATER",
+        "NET",
+        "RAG",
+        "RAGE",
+        "RAGEE",
+        "RAN",
+        "RANEE",
+        "RANG",
+        "RANT",
+        "RAT",
+        "RATE",
+        "REAGENT",
+        "REE",
+        "REG",
+        "REGENT",
+        "REGNA",
+        "RENT",
+        "RENTE",
+        "RET",
+        "RETAG",
+        "RETE",
+        "TAE",
+        "TAG",
+        "TAN",
+        "TANG",
+        "TAR",
+        "TARE",
+        "TARGE",
+        "TARN",
+        "TEA",
+        "TEAR",
+        "TEE",
+        "TEEN",
+        "TEG",
+        "TEN",
+        "TERGA",
+        "TERN",
+        "TERNE",
+        "TREE",
+        "TREEN"
+      ]
+    },
+    {
+      "id": 34,
+      "name": "Level 34",
+      "letters": [
+        "S",
+        "N",
+        "A",
+        "R",
+        "L",
+        "E",
+        "D"
+      ],
+      "grid": [
+        {
+          "word": "SNARLED",
+          "row": 0,
+          "col": 0,
+          "dir": "across"
+        },
+        {
+          "word": "DENS",
+          "row": -1,
+          "col": 5,
+          "dir": "down"
+        },
+        {
+          "word": "LEADS",
+          "row": -2,
+          "col": 2,
+          "dir": "down"
+        },
+        {
+          "word": "SEAR",
+          "row": 2,
+          "col": 5,
+          "dir": "across"
+        },
+        {
+          "word": "LAND",
+          "row": 1,
+          "col": 7,
+          "dir": "down"
+        },
+        {
+          "word": "EAR",
+          "row": 2,
+          "col": 6,
+          "dir": "across"
+        },
+        {
+          "word": "ENDS",
+          "row": -3,
+          "col": 0,
+          "dir": "down"
+        }
+      ],
+      "bonus": [
+        "ADS",
+        "ALDER",
+        "ALDERS",
+        "ALE",
+        "ALES",
+        "ALS",
+        "AND",
+        "ANDS",
+        "ANE",
+        "ANES",
+        "ARE",
+        "ARES",
+        "ARLES",
+        "ARS",
+        "DAL",
+        "DALE",
+        "DALES",
+        "DALS",
+        "DARE",
+        "DARES",
+        "DARN",
+        "DARNEL",
+        "DARNELS",
+        "DARNS",
+        "DEAL",
+        "DEALS",
+        "DEAN",
+        "DEANS",
+        "DEAR",
+        "DEARS",
+        "DEL",
+        "DELS",
+        "DEN",
+        "EARL",
+        "EARLS",
+        "EARN",
+        "EARNS",
+        "EARS",
+        "ELAN",
+        "ELAND",
+        "ELANDS",
+        "ELANS",
+        "ELD",
+        "ELDS",
+        "ELS",
+        "END",
+        "ENS",
+        "ERA",
+        "ERAS",
+        "ERN",
+        "ERNS",
+        "ERS",
+        "LAD",
+        "LADE",
+        "LADEN",
+        "LADENS",
+        "LADER",
+        "LADERS",
+        "LADES",
+        "LADS",
+        "LANDER",
+        "LANDERS",
+        "LANDS",
+        "LANE",
+        "LANES",
+        "LAR",
+        "LARD",
+        "LARDS",
+        "LARES",
+        "LARS",
+        "LAS",
+        "LASE",
+        "LASED",
+        "LASER",
+        "LEA",
+        "LEAD",
+        "LEAN",
+        "LEANS",
+        "LEAR",
+        "LEARN",
+        "LEARNS",
+        "LEARS",
+        "LEAS",
+        "LED",
+        "LEND",
+        "LENDS",
+        "LENS",
+        "NAE",
+        "NALED",
+        "NALEDS",
+        "NARD",
+        "NARDS",
+        "NARES",
+        "NEAR",
+        "NEARS",
+        "NERD",
+        "NERDS",
+        "RAD",
+        "RADS",
+        "RALE",
+        "RALES",
+        "RAN",
+        "RAND",
+        "RANDS",
+        "RAS",
+        "RASE",
+        "RASED",
+        "READ",
+        "READS",
+        "REAL",
+        "REALS",
+        "RED",
+        "REDAN",
+        "REDANS",
+        "REDS",
+        "RENAL",
+        "REND",
+        "RENDS",
+        "RES",
+        "SAD",
+        "SADE",
+        "SAE",
+        "SAL",
+        "SALE",
+        "SAND",
+        "SANDER",
+        "SANE",
+        "SANED",
+        "SANER",
+        "SARD",
+        "SEA",
+        "SEAL",
+        "SEDAN",
+        "SEL",
+        "SEN",
+        "SEND",
+        "SENDAL",
+        "SER",
+        "SERA",
+        "SERAL",
+        "SLANDER",
+        "SLED",
+        "SNARE",
+        "SNARED",
+        "SNARL",
+        "SNED"
+      ]
+    },
+    {
+      "id": 35,
+      "name": "Level 35",
+      "letters": [
+        "F",
+        "O",
+        "R",
+        "E",
+        "S",
+        "E",
+        "E"
+      ],
+      "grid": [
+        {
+          "word": "FORESEE",
+          "row": 0,
+          "col": 0,
+          "dir": "across"
+        },
+        {
+          "word": "FOE",
+          "row": 0,
+          "col": 0,
+          "dir": "down"
+        },
+        {
+          "word": "REEFS",
+          "row": -1,
+          "col": 5,
+          "dir": "down"
+        },
+        {
+          "word": "SEE",
+          "row": 2,
+          "col": -1,
+          "dir": "across"
+        },
+        {
+          "word": "ROE",
+          "row": -2,
+          "col": 3,
+          "dir": "down"
+        },
+        {
+          "word": "ROSE",
+          "row": 3,
+          "col": 3,
+          "dir": "across"
+        },
+        {
+          "word": "FOR",
+          "row": -2,
+          "col": 1,
+          "dir": "across"
+        }
+      ],
+      "bonus": [
+        "EFS",
+        "ERE",
+        "EROS",
+        "EROSE",
+        "ERS",
+        "FEE",
+        "FEES",
+        "FER",
+        "FERE",
+        "FERES",
+        "FOES",
+        "FORE",
+        "FORES",
+        "FREE",
+        "FREES",
+        "FRO",
+        "FROE",
+        "FROES",
+        "OES",
+        "ORE",
+        "ORES",
+        "ORS",
+        "OSE",
+        "REE",
+        "REEF",
+        "REES",
+        "REF",
+        "REFS",
+        "RES",
+        "RESEE",
+        "ROES",
+        "SEER",
+        "SER",
+        "SERE",
+        "SERF",
+        "SORE"
+      ]
+    },
+    {
+      "id": 36,
+      "name": "Level 36",
+      "letters": [
+        "C",
+        "H",
+        "I",
+        "N",
+        "T",
+        "Z",
+        "Y"
+      ],
+      "grid": [
+        {
+          "word": "CHINTZY",
+          "row": 0,
+          "col": 0,
+          "dir": "across"
+        },
+        {
+          "word": "TINY",
+          "row": -2,
+          "col": 3,
+          "dir": "down"
+        },
+        {
+          "word": "ZINC",
+          "row": 0,
+          "col": 5,
+          "dir": "down"
+        },
+        {
+          "word": "CITY",
+          "row": -2,
+          "col": 1,
+          "dir": "across"
+        },
+        {
+          "word": "CHIT",
+          "row": 3,
+          "col": 5,
+          "dir": "across"
+        },
+        {
+          "word": "ZIT",
+          "row": 2,
+          "col": 7,
+          "dir": "down"
+        },
+        {
+          "word": "CHI",
+          "row": 0,
+          "col": 0,
+          "dir": "down"
+        }
+      ],
+      "bonus": [
+        "CHIN",
+        "CHINTZ",
+        "HIC",
+        "HIN",
+        "HINT",
+        "HIT",
+        "ICH",
+        "ICY",
+        "INCH",
+        "ITCH",
+        "ITCHY",
+        "NIT",
+        "NTH",
+        "THIN",
+        "THY",
+        "TIC",
+        "TIN",
+        "YIN",
+        "ZIN",
+        "ZINCY"
+      ]
+    },
+    {
+      "id": 37,
+      "name": "Level 37",
+      "letters": [
+        "W",
+        "I",
+        "L",
+        "L",
+        "I",
+        "E",
+        "S"
+      ],
+      "grid": [
+        {
+          "word": "WILLIES",
+          "row": 0,
+          "col": 0,
+          "dir": "across"
+        },
+        {
+          "word": "ELLS",
+          "row": 0,
+          "col": 5,
+          "dir": "down"
+        },
+        {
+          "word": "ILL",
+          "row": -2,
+          "col": 3,
+          "dir": "down"
+        },
+        {
+          "word": "WELLS",
+          "row": 2,
+          "col": 3,
+          "dir": "across"
+        },
+        {
+          "word": "LIES",
+          "row": -2,
+          "col": 2,
+          "dir": "across"
+        },
+        {
+          "word": "SLEW",
+          "row": 2,
+          "col": 7,
+          "dir": "down"
+        },
+        {
+          "word": "LISLE",
+          "row": -1,
+          "col": 1,
+          "dir": "down"
+        }
+      ],
+      "bonus": [
+        "ELL",
+        "ELS",
+        "ILLS",
+        "ISLE",
+        "IWIS",
+        "LEI",
+        "LEIS",
+        "LEWIS",
+        "LIE",
+        "LILIES",
+        "LIS",
+        "LWEI",
+        "LWEIS",
+        "SEI",
+        "SEL",
+        "SELL",
+        "SEW",
+        "SILL",
+        "SWELL",
+        "SWILL",
+        "WELL",
+        "WILE",
+        "WILES",
+        "WILL",
+        "WILLS",
+        "WIS",
+        "WISE"
+      ]
+    },
+    {
+      "id": 38,
+      "name": "Level 38",
+      "letters": [
+        "R",
+        "E",
+        "N",
+        "E",
+        "W",
+        "A",
+        "L"
+      ],
+      "grid": [
+        {
+          "word": "RENEWAL",
+          "row": 0,
+          "col": 0,
+          "dir": "across"
+        },
+        {
+          "word": "WEEN",
+          "row": -1,
+          "col": 1,
+          "dir": "down"
+        },
+        {
+          "word": "NEAR",
+          "row": -2,
+          "col": 5,
+          "dir": "down"
+        },
+        {
+          "word": "LANE",
+          "row": 2,
+          "col": -1,
+          "dir": "across"
+        },
+        {
+          "word": "LAWN",
+          "row": -2,
+          "col": 2,
+          "dir": "across"
+        },
+        {
+          "word": "ANEW",
+          "row": 2,
+          "col": 0,
+          "dir": "down"
+        },
+        {
+          "word": "EEL",
+          "row": 2,
+          "col": 2,
+          "dir": "down"
+        }
+      ],
+      "bonus": [
+        "ALE",
+        "ALEE",
+        "ANE",
+        "ANELE",
+        "ARE",
+        "AWE",
+        "AWEE",
+        "AWL",
+        "AWN",
+        "EAR",
+        "EARL",
+        "EARN",
+        "ELAN",
+        "ERA",
+        "ERE",
+        "ERN",
+        "ERNE",
+        "EWE",
+        "EWER",
+        "LAR",
+        "LAREE",
+        "LAW",
+        "LEA",
+        "LEAN",
+        "LEANER",
+        "LEAR",
+        "LEARN",
+        "LEE",
+        "LEER",
+        "NAE",
+        "NAW",
+        "NEE",
+        "NEW",
+        "NEWEL",
+        "NEWER",
+        "RALE",
+        "RAN",
+        "RANEE",
+        "RAW",
+        "REAL",
+        "REE",
+        "REEL",
+        "RENAL",
+        "RENEW",
+        "REWAN",
+        "WAE",
+        "WALE",
+        "WALER",
+        "WAN",
+        "WANE",
+        "WAR",
+        "WARE",
+        "WARN",
+        "WEAL",
+        "WEAN",
+        "WEANER",
+        "WEAR",
+        "WEE",
+        "WEEL",
+        "WEER",
+        "WEN",
+        "WERE",
+        "WREN"
+      ]
+    },
+    {
+      "id": 39,
+      "name": "Level 39",
+      "letters": [
+        "P",
+        "L",
+        "U",
+        "N",
+        "D",
+        "E",
+        "R"
+      ],
+      "grid": [
+        {
+          "word": "PLUNDER",
+          "row": 0,
+          "col": 0,
+          "dir": "across"
+        },
+        {
+          "word": "DUPLE",
+          "row": -4,
+          "col": 5,
+          "dir": "down"
+        },
+        {
+          "word": "PRUNE",
+          "row": -3,
+          "col": 3,
+          "dir": "down"
+        },
+        {
+          "word": "REND",
+          "row": 0,
+          "col": 6,
+          "dir": "down"
+        },
+        {
+          "word": "RULE",
+          "row": -2,
+          "col": 1,
+          "dir": "down"
+        },
+        {
+          "word": "DUPE",
+          "row": -4,
+          "col": 5,
+          "dir": "across"
+        },
+        {
+          "word": "PRUDE",
+          "row": 3,
+          "col": 3,
+          "dir": "across"
+        }
+      ],
+      "bonus": [
+        "DEL",
+        "DEN",
+        "DRUPE",
+        "DUE",
+        "DUEL",
+        "DUN",
+        "DUNE",
+        "DUP",
+        "DUPER",
+        "DURE",
+        "DURN",
+        "ELD",
+        "END",
+        "ERN",
+        "LED",
+        "LEND",
+        "LEU",
+        "LEUD",
+        "LUDE",
+        "LUNE",
+        "LURE",
+        "LURED",
+        "NERD",
+        "NUDE",
+        "NUDER",
+        "NURD",
+        "NURL",
+        "NURLED",
+        "PED",
+        "PEN",
+        "PEND",
+        "PER",
+        "PERDU",
+        "PLED",
+        "PRUNED",
+        "PUD",
+        "PUL",
+        "PULE",
+        "PULED",
+        "PULER",
+        "PUN",
+        "PUR",
+        "PURE",
+        "PURL",
+        "PURLED",
+        "RED",
+        "REP",
+        "RUDE",
+        "RUE",
+        "RUED",
+        "RULED",
+        "RUN",
+        "RUNDLE",
+        "RUNE",
+        "UNDE",
+        "UNDER",
+        "UNLED",
+        "UPEND",
+        "URD",
+        "URN"
+      ]
+    },
+    {
+      "id": 40,
+      "name": "Level 40",
+      "letters": [
+        "S",
+        "P",
+        "A",
+        "T",
+        "U",
+        "L",
+        "A"
+      ],
+      "grid": [
+        {
+          "word": "SPATULA",
+          "row": 0,
+          "col": 0,
+          "dir": "across"
+        },
+        {
+          "word": "PLUS",
+          "row": -1,
+          "col": 5,
+          "dir": "down"
+        },
+        {
+          "word": "SPAT",
+          "row": 2,
+          "col": 5,
+          "dir": "across"
+        },
+        {
+          "word": "UPS",
+          "row": -1,
+          "col": 1,
+          "dir": "down"
+        },
+        {
+          "word": "APT",
+          "row": -2,
+          "col": 3,
+          "dir": "down"
+        },
+        {
+          "word": "SPLAT",
+          "row": -2,
+          "col": 8,
+          "dir": "down"
+        },
+        {
+          "word": "ALPS",
+          "row": 2,
+          "col": 7,
+          "dir": "down"
+        }
+      ],
+      "bonus": [
+        "AAL",
+        "AALS",
+        "AAS",
+        "ALA",
+        "ALAS",
+        "ALP",
+        "ALS",
+        "ALT",
+        "ALTS",
+        "ASP",
+        "ATAP",
+        "ATAPS",
+        "ATLAS",
+        "LAP",
+        "LAPS",
+        "LAS",
+        "LAST",
+        "LAT",
+        "LATS",
+        "LUST",
+        "PAL",
+        "PALS",
+        "PAS",
+        "PAST",
+        "PASTA",
+        "PAT",
+        "PATS",
+        "PAUSAL",
+        "PLAT",
+        "PLATS",
+        "PUL",
+        "PULA",
+        "PULS",
+        "PUS",
+        "PUT",
+        "PUTS",
+        "SAL",
+        "SALP",
+        "SALPA",
+        "SALT",
+        "SAP",
+        "SAT",
+        "SAU",
+        "SAUL",
+        "SAULT",
+        "SLAP",
+        "SLAT",
+        "SPA",
+        "SPUTA",
+        "STUPA",
+        "SUP",
+        "TALA",
+        "TALAS",
+        "TALUS",
+        "TAP",
+        "TAPA",
+        "TAPAS",
+        "TAPS",
+        "TAS",
+        "TAU",
+        "TAUS",
+        "TUP",
+        "TUPS",
+        "UPAS",
+        "UTA",
+        "UTAS",
+        "UTS"
       ]
     }
   ]

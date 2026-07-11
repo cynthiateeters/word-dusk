@@ -4,3 +4,4 @@ scripts/.cache/
 playwright-report/
 test-results/
 .netlify/
+tmp/
