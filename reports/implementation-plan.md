@@ -183,14 +183,18 @@ word-dusk/
 
 ### Phase 5 — Repo publish + deploy (runs on H2/H3 approval)
 
-1. **Do:** Create the public GitHub repo `word-dusk` on the personal account (not RVCC-IDMX) via `gh repo create` with the local history pushed as-is (no squash). Add MIT license (Cynthia Teeters) and word-list license attributions before pushing if not already committed.
-   **Expect:** `gh run watch` (or `gh run list`) shows the CI workflow green on main.
+0. **Do (H2 audit fixes, directed 2026-07-11 — run these first):** Commit the uncommitted Phase 4 work — `vite.config.js` (the `preloadFonts()` plugin that carried Performance from 0.84 to 0.91), `CLAUDE.md` (tier-1 exclusions rule), `reports/run-record.md`, and the `reports/lighthouse/` JSON evidence. Then append the missing **step 6 / HARD STOP H2** section to the run record: test inventory, two-run Playwright result, the three Lighthouse scores with their on-disk JSON paths, `gh auth status`, H3 items, and deviations.
+   **Expect:** `git status --porcelain` is empty; the record contains an H2 section.
+   **📝 Why:** the Lighthouse-passing build existed only in the working tree — Phase 5 opens by pushing history, and CI's own drift-gate fails on a dirty tree.
+1. **Do:** Write a root `LICENSE` file — MIT, copyright Cynthia Teeters — and commit it *before* `gh repo create`. Then create the public GitHub repo `word-dusk` on the personal account (not RVCC-IDMX) via `gh repo create` with the local history pushed as-is (no squash). Word-list and font license attributions (OFL fonts; 12dicts/ENABLE dictionaries) are already recorded in `scripts/README.md` — carry them into the README in step 4.
+   **Expect:** `LICENSE` exists at the root and is tracked; `gh run watch` (or `gh run list`) shows the CI workflow green on main.
    **If not:** CI-environment-only failures get repair loop R2; anything else, report.
 2. **Do:** `netlify.toml` — build `pnpm build`, publish `dist`, SPA redirect `/* -> /index.html 200`. Deploy via Netlify CLI/MCP to a new site named `word-dusk` (accept an available subdomain variant).
    **Expect:** production URL returns 200 and the game loads (curl + a real page check).
 3. **Do:** Run Lighthouse once more against the *deployed* URL; scores must hold ≥ 90.
    **If not:** R3 continues if attempts remain for the deployed-environment cause (headers, compression — fix in `netlify.toml`); else report.
-4. **Do:** README — screenshot (saved to a stated path, `test -f` proof), play link, dictionary pipeline explanation, regeneration instructions (`node scripts/generate-levels.mjs --seed <n>`), dev setup (pnpm). Update `reports/index.md` if any report files changed. Final commit + push.
+4. **Do:** README — must follow the house convention, which the earlier draft of this step did not spell out. Required sections, in order: a short intro (what Word Dusk is) with the **play link** and a **screenshot** (saved to a stated path, `test -f` + non-zero-size proof — an image seen inline in tool output is not evidence); **Beginner's Guide** (how to play: drag or type letters on the wheel, grid words vs. bonus words, hints); **Dev setup** (pnpm — `pnpm install`, `pnpm dev`, `pnpm build`, `pnpm vitest run`, `pnpm exec playwright test`); **Dictionary pipeline** (two-tier tier1/tier2 explanation, the tier-1 exclusions mechanism, and regeneration instructions — `node scripts/generate-levels.mjs --seed <n>`, never hand-edit `levels.json`); **Attributions** (OFL fonts, 12dicts/ENABLE word lists, per `scripts/README.md`); **Contributing**; **MIT License (Cynthia Teeters)** pointing at the root `LICENSE` from step 1. Update `reports/index.md` if any report files changed. Final commit + push.
+   **Expect:** every section above is present; the screenshot path passes `test -f` and is non-zero.
 5. **Do:** Complete the run record: map every acceptance criterion to the exact check that proved it.
 
 ### Verification (final — every claim maps to a check actually run)
