@@ -266,3 +266,88 @@ discipline established at H1. The commit was real and matched the described diff
 - Full `pnpm vitest run` green (87 tests); `pnpm build` exits 0.
 
 **Phase 4 step 0 exit: PASS.** Proceeding to Phase 4 steps 1-6.
+
+### Phase 4 steps 1-3 (2026-07-11, backfilled) — unit-test gaps, e2e suite, lint, CI
+
+These three steps were committed before this entry was written; recorded now, matching what
+actually shipped, per an independent audit that first verified all mechanical oracles below still
+pass before backfilling.
+
+**Step 1 — fill unit-test gaps (`c548b16`, `78ed385`):**
+
+- Factored multiset containment out of the generator into `src/game/` (shared by the generator and
+  by `computeBonusWords`), closing the gap where generator logic wasn't independently unit-tested.
+- Committed the filtered `scripts/data/tier1.json` (~27.5k words, post-blocklist, post-exclusion)
+  so `tests/unit/generator-invariants.test.js` can assert "every grid word is tier 1" without
+  depending on the gitignored `scripts/.cache/` existing — documented in `scripts/README.md`'s
+  "Committed tier data" section. Tier 2 (172k+ words) stays uncommitted; not needed for that
+  assertion.
+- Unit suite grew to **107 tests across 12 files** (from 87). `pnpm vitest run` — all green.
+
+**Step 2 — Playwright e2e suite (`8cca2d4`):**
+
+- `tests/e2e/gameplay.spec.js`, 4 tests: drag-trace word submission, shuffle-preserves-letters +
+  hint-spends-a-credit, keyboard bonus-word find, and a full keyboard level-completion flow that
+  also reloads the page and confirms progress persistence survives it.
+- Required small app-side additions to make elements reliably selectable/awaitable under Playwright
+  (test hooks in `App.jsx`, `Controls.jsx`, `LevelSelect.jsx`, `Overlay.jsx`, `Wheel.jsx`) and a
+  `playwright.config.js` (auto-starts `pnpm preview` against the production build for the test run).
+- **Two-run flake check (this audit, 2026-07-11):** `pnpm exec playwright test` run twice
+  back-to-back — 4/4 passed both times (1.4s, then 1.0s). No flake observed.
+
+**Step 3 — ESLint flat config + CI workflow (`0f7c844`, `642660a`):**
+
+- `eslint.config.js`: flat config, `eslint-plugin-react-hooks`, separate browser/Node global sets
+  for `src/` vs `scripts/`/config files, `dist/` ignored.
+- `vitest.config.js` scoped to `tests/unit/` only, so `pnpm vitest run` no longer picks up the
+  Playwright spec (which needs a running preview server, not a unit-test environment).
+- `.github/workflows/ci.yml`: runs on push to `main` and on PRs — install (frozen lockfile), lint,
+  unit tests (including generator invariants), build, then fails if the build left uncommitted
+  changes (catches a generator/build drift from `levels.json` or other generated output silently
+  going stale).
+- **Audit re-run (this entry, 2026-07-11):** `pnpm lint` — clean, 0 errors/warnings. `pnpm vitest
+  run` — 107/107 passed. `pnpm build` — exits 0, no uncommitted changes after.
+
+**Phase 4 steps 1-3 exit: PASS** (audited independently, all oracles green). Proceeding to Phase 4
+steps 4-6.
+
+### Phase 4 step 4 (2026-07-11) — Lighthouse
+
+- `pnpm build` (exits 0) → `npx serve -l 4173 dist` → `lighthouse http://localhost:4173 --output
+  json --output-path reports/lighthouse/word-dusk-2026-07-11.json --chrome-flags="--headless"
+  --only-categories=performance,accessibility,best-practices`.
+- **First run:** performance 0.84 (below 0.90), accessibility 1.0, best-practices 0.96.
+  `test -f` + non-empty confirmed on disk. Triggered repair loop R3.
+- R3 check-first: `color-contrast` audit score 1, zero failing elements — the `#7f8ab0` idle-text
+  contrast was not the cause; ruled out before touching anything else.
+- Root cause: `render-blocking-resources` (~2.25s estimated savings) and a slow LCP (3.5s) —
+  the two self-hosted variable fonts (194 KB, 207 KB) were only discovered after the CSS parsed
+  (network dependency chain: HTML → CSS → fonts), so under Lighthouse's default mobile-throttled
+  simulation (1.6 Mbps, 4x CPU slowdown) they loaded serially behind the stylesheet.
+- Fix: added an inline `preloadFonts()` Vite plugin (`vite.config.js`) that reads the emitted
+  bundle in `transformIndexHtml` and injects `<link rel="preload" as="font">` for each hashed
+  `.woff2` asset, so both fonts start fetching in parallel with the CSS instead of after it. No new
+  dependency — uses Vite's existing plugin API. Verified in `dist/index.html` after rebuild: both
+  preload links present with the correct hashed asset paths.
+- **Second run** (`reports/lighthouse/word-dusk-2026-07-11-r2.json`, confirmed on disk, 342494
+  bytes): performance **0.91**, accessibility **1.0**, best-practices **0.96** — all three ≥ 0.90.
+  Repair loop closed after 1 of 3 allocated attempts.
+- Preview server killed after the run.
+
+**Phase 4 step 4 exit: PASS.**
+
+### Phase 4 step 5 (2026-07-11) — CLAUDE.md tier1-exclusions mechanism
+
+- `CLAUDE.md`'s Non-negotiable rules section documented the two-tier dictionary and blocklist but
+  never mentioned the tier1-exclusions mechanism that step 0 (`506d03e`) had already built and
+  documented in `scripts/README.md`.
+- Added a new bullet immediately after the two-tier dictionary rule, matching the mechanism as
+  already specified in `scripts/README.md`'s "Tier 1 exclusions" section: append the word to
+  `scripts/tier1-exclusions.txt`, rebuild (`node scripts/build-dictionary.mjs`), regenerate
+  (`node scripts/generate-levels.mjs --seed <n>`) — never hand-edit `levels.json`. Notes that the
+  exclusion is tier-1-only and the word stays valid as a bonus word if formable.
+- No dictionary rebuild or level regeneration was needed for this step — the mechanism itself
+  (and its two seed words, OPE and NUS) already exists and is exercised; this step closes the
+  documentation gap in `CLAUDE.md` only.
+
+**Phase 4 step 5 exit: PASS.**
