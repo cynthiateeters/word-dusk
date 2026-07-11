@@ -39,7 +39,12 @@ export function loadSave(storage) {
 
 export function writeSave(save, storage) {
   if (!storage) return;
-  storage.setItem(STORAGE_KEY, JSON.stringify({ ...save, version: SAVE_VERSION }));
+  try {
+    storage.setItem(STORAGE_KEY, JSON.stringify({ ...save, version: SAVE_VERSION }));
+  } catch {
+    // Quota exceeded or storage blocked (e.g. strict private browsing) — degrade to
+    // in-memory-only for this session rather than crash the game.
+  }
 }
 
 export function totalBonusCount(save) {

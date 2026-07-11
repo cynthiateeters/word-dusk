@@ -20,7 +20,12 @@ import "./styles/fonts.css";
 import "./styles/app.css";
 
 function getStorage() {
-  return typeof window !== "undefined" ? window.localStorage : null;
+  try {
+    return typeof window !== "undefined" ? window.localStorage : null;
+  } catch {
+    // Some strict private-browsing modes throw on accessing localStorage itself.
+    return null;
+  }
 }
 
 function GameLoadError() {

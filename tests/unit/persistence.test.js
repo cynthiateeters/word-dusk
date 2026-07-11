@@ -71,4 +71,21 @@ describe("persistence", () => {
     const save = { bonusFoundByLevel: { 1: ["ATE", "TEA"], 2: ["EAT"] } };
     expect(totalBonusCount(save)).toBe(3);
   });
+
+  it("does not throw when storage.setItem throws (quota exceeded, blocked storage)", () => {
+    const throwingStorage = {
+      getItem: () => null,
+      setItem: () => {
+        throw new DOMException("QuotaExceededError");
+      },
+    };
+    const save = {
+      version: 1,
+      currentLevel: 3,
+      clearedLevels: [1],
+      bonusFoundByLevel: {},
+      hintCredits: 2,
+    };
+    expect(() => writeSave(save, throwingStorage)).not.toThrow();
+  });
 });
