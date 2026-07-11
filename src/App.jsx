@@ -1,19 +1,27 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect, useRef } from "react";
 import Backdrop from "./components/Backdrop.jsx";
 import Wheel from "./components/Wheel.jsx";
 import Grid from "./components/Grid.jsx";
 import Controls from "./components/Controls.jsx";
 import Overlay from "./components/Overlay.jsx";
 import ErrorBoundary from "./components/ErrorBoundary.jsx";
+import LevelSelect from "./components/LevelSelect.jsx";
+import About from "./components/About.jsx";
 import { useTimeout } from "./hooks/useTimeout.js";
 import { buildLevelData } from "./game/cells.js";
 import { shuffleArray } from "./game/rng.js";
 import { classifyWord, WordResult } from "./game/classify.js";
 import { isLevelComplete } from "./game/completion.js";
 import { validateLevels, CURRENT_SCHEMA_VERSION } from "./game/levelSchema.js";
+import { loadSave, writeSave, totalBonusCount } from "./game/persistence.js";
+import { awardHintCredits, canSpendHint, spendHint, pickHintCell } from "./game/hints.js";
 import levelsData from "./data/levels.json";
 import "./styles/fonts.css";
 import "./styles/app.css";
+
+function getStorage() {
+  return typeof window !== "undefined" ? window.localStorage : null;
+}
 
 function GameLoadError() {
   return (
@@ -31,28 +39,44 @@ function GameLoadError() {
   );
 }
 
-function Game({ levels }) {
-  const [levelIndex, setLevelIndex] = useState(0);
-  const [wheelLetters, setWheelLetters] = useState(levels[0].letters);
+function Game({
+  level,
+  levelIndex,
+  totalLevels,
+  initialBonusFound,
+  hintCredits,
+  onBonusFound,
+  onLevelCleared,
+  onHintSpend,
+  onExit,
+}) {
+  const [wheelLetters, setWheelLetters] = useState(level.letters);
   const [revealed, setRevealed] = useState(new Set());
   const [foundWords, setFoundWords] = useState(new Set());
-  const [bonusFound, setBonusFound] = useState(new Set());
+  const [bonusFound, setBonusFound] = useState(new Set(initialBonusFound));
   const [trace, setTrace] = useState("");
   const [message, setMessage] = useState(null);
   const [justRevealed, setJustRevealed] = useState(new Set());
   const [shake, setShake] = useState(false);
+  const clearedRef = useRef(false);
 
   const msgTimer = useTimeout();
   const revealTimer = useTimeout();
   const shakeTimer = useTimeout();
 
-  const level = levels[levelIndex];
   const data = useMemo(() => buildLevelData(level), [level]);
   const gridWords = useMemo(() => new Set(level.grid.map((w) => w.word)), [level]);
   const bonusWords = useMemo(() => new Set(level.bonus), [level]);
 
   const levelComplete = isLevelComplete(level, revealed);
-  const isLastLevel = levelIndex === levels.length - 1;
+  const isLastLevel = levelIndex === totalLevels - 1;
+
+  useEffect(() => {
+    if (levelComplete && !clearedRef.current) {
+      clearedRef.current = true;
+      onLevelCleared(level.id);
+    }
+  }, [levelComplete, level.id, onLevelCleared]);
 
   const flash = (text, kind = "info") => {
     setMessage({ text, kind });
@@ -99,6 +123,7 @@ function Game({ levels }) {
       }
       case WordResult.BONUS:
         setBonusFound((prev) => new Set(prev).add(classified.word));
+        onBonusFound(level.id, classified.word);
         flash(`Bonus: ${classified.word}`, "bonus");
         return;
       default:
@@ -109,25 +134,17 @@ function Game({ levels }) {
   };
 
   const handleHint = () => {
+    if (!canSpendHint(hintCredits)) return;
     const unrevealedKeys = [...data.cells.keys()].filter((k) => !revealed.has(k));
-    if (unrevealedKeys.length === 0) return;
-    const pick = unrevealedKeys[Math.floor(Math.random() * unrevealedKeys.length)];
+    const pick = pickHintCell(unrevealedKeys);
+    if (pick === null) return;
     setRevealed((prev) => new Set(prev).add(pick));
     setJustRevealed(new Set([pick]));
     revealTimer.set(() => setJustRevealed(new Set()), 700);
+    onHintSpend();
   };
 
   const handleShuffle = () => setWheelLetters((prev) => shuffleArray(prev));
-
-  const goToLevel = (idx) => {
-    setLevelIndex(idx);
-    setWheelLetters(shuffleArray(levels[idx].letters));
-    setRevealed(new Set());
-    setFoundWords(new Set());
-    setBonusFound(new Set());
-    setTrace("");
-    setMessage(null);
-  };
 
   const cols = data.maxC - data.minC + 1;
   const rows = data.maxR - data.minR + 1;
@@ -141,25 +158,32 @@ function Game({ levels }) {
         <div className="level-tag">
           <span className="level-name">{level.name}</span>
           <span className="level-num">
-            Level {levelIndex + 1} of {levels.length}
+            Level {levelIndex + 1} of {totalLevels}
           </span>
         </div>
-        <div className="bonus-chip" title="Bonus words found">
-          <span className="bonus-dot" />
-          {bonusFound.size} bonus
+        <div className="header-actions">
+          <div className="bonus-chip" title="Bonus words found">
+            <span className="bonus-dot" />
+            {bonusFound.size} bonus
+          </div>
+          <button className="btn" onClick={onExit}>
+            Levels
+          </button>
         </div>
       </header>
 
       <main className="board">
         <Grid data={data} revealed={revealed} justRevealed={justRevealed} cellSize={cellSize} />
 
-        <div className={`trace-word ${shake ? "shake" : ""}`}>
+        <div className={`trace-word ${shake ? "shake" : ""}`} aria-live="polite">
           {trace ? (
             <span className="trace-live">{trace}</span>
           ) : message ? (
             <span className={`msg msg-${message.kind}`}>{message.text}</span>
           ) : (
-            <span className="msg msg-idle">Drag through letters to spell a word</span>
+            <span className="msg msg-idle">
+              Drag through letters, or type them, to spell a word
+            </span>
           )}
         </div>
 
@@ -170,7 +194,12 @@ function Game({ levels }) {
           disabled={levelComplete}
         />
 
-        <Controls onShuffle={handleShuffle} onHint={handleHint} disabled={levelComplete} />
+        <Controls
+          onShuffle={handleShuffle}
+          onHint={handleHint}
+          disabled={levelComplete || !canSpendHint(hintCredits)}
+          hintCredits={hintCredits}
+        />
       </main>
 
       {levelComplete && (
@@ -179,11 +208,83 @@ function Game({ levels }) {
           isLastLevel={isLastLevel}
           foundCount={foundWords.size}
           bonusCount={bonusFound.size}
-          onAdvance={() => goToLevel(levelIndex + 1)}
-          onReplay={() => goToLevel(0)}
+          onAdvance={onExit}
+          onReplay={onExit}
         />
       )}
     </div>
+  );
+}
+
+function Root({ levels }) {
+  const [save, setSave] = useState(() => loadSave(getStorage()));
+  const [screen, setScreen] = useState("select");
+  const [activeLevelIndex, setActiveLevelIndex] = useState(save.currentLevel || 0);
+
+  const persist = (next) => {
+    setSave(next);
+    writeSave(next, getStorage());
+  };
+
+  const handleSelectLevel = (index) => {
+    setActiveLevelIndex(index);
+    persist({ ...save, currentLevel: index });
+    setScreen("game");
+  };
+
+  const handleBonusFound = (levelId, word) => {
+    const before = totalBonusCount(save);
+    const existing = save.bonusFoundByLevel[levelId] || [];
+    if (existing.includes(word)) return;
+    const bonusFoundByLevel = { ...save.bonusFoundByLevel, [levelId]: [...existing, word] };
+    const after = totalBonusCount({ bonusFoundByLevel });
+    persist({
+      ...save,
+      bonusFoundByLevel,
+      hintCredits: awardHintCredits(save.hintCredits, before, after),
+    });
+  };
+
+  const handleLevelCleared = (levelId) => {
+    if (save.clearedLevels.includes(levelId)) return;
+    persist({ ...save, clearedLevels: [...save.clearedLevels, levelId] });
+  };
+
+  const handleHintSpend = () => {
+    persist({ ...save, hintCredits: spendHint(save.hintCredits) });
+  };
+
+  if (screen === "select") {
+    return (
+      <>
+        <LevelSelect
+          levels={levels}
+          clearedLevels={save.clearedLevels}
+          onSelect={handleSelectLevel}
+          onAbout={() => setScreen("about")}
+        />
+      </>
+    );
+  }
+
+  if (screen === "about") {
+    return <About onClose={() => setScreen("select")} />;
+  }
+
+  const level = levels[activeLevelIndex];
+  return (
+    <Game
+      key={level.id}
+      level={level}
+      levelIndex={activeLevelIndex}
+      totalLevels={levels.length}
+      initialBonusFound={save.bonusFoundByLevel[level.id] || []}
+      hintCredits={save.hintCredits}
+      onBonusFound={handleBonusFound}
+      onLevelCleared={handleLevelCleared}
+      onHintSpend={handleHintSpend}
+      onExit={() => setScreen("select")}
+    />
   );
 }
 
@@ -193,7 +294,7 @@ export default function App() {
 
   return (
     <ErrorBoundary>
-      <Game levels={levelsData.levels} />
+      <Root levels={levelsData.levels} />
     </ErrorBoundary>
   );
 }
