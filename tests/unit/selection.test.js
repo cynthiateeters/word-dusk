@@ -1,5 +1,10 @@
 import { describe, it, expect } from "vitest";
-import { startSelection, moveSelection, selectionToWord } from "../../src/game/selection.js";
+import {
+  startSelection,
+  moveSelection,
+  selectionToWord,
+  keyboardSelectLetter,
+} from "../../src/game/selection.js";
 
 describe("selection", () => {
   it("starts a trace with a single index", () => {
@@ -37,5 +42,23 @@ describe("selection", () => {
     sel = moveSelection(sel, 3); // second T (different position, same letter)
     expect(sel).toEqual([2, 3]);
     expect(selectionToWord(sel, letters)).toBe("TT");
+  });
+
+  it("keyboard: selects the first unused position for a duplicate letter", () => {
+    const letters = ["L", "E", "T", "T", "E", "R", "S"];
+    let sel = keyboardSelectLetter([], letters, "t");
+    expect(sel).toEqual([2]);
+    sel = keyboardSelectLetter(sel, letters, "T");
+    expect(sel).toEqual([2, 3]);
+  });
+
+  it("keyboard: no-ops when the letter isn't on the wheel", () => {
+    const letters = ["L", "E", "T", "T", "E", "R", "S"];
+    expect(keyboardSelectLetter([0], letters, "z")).toEqual([0]);
+  });
+
+  it("keyboard: no-ops when every position for that letter is already selected", () => {
+    const letters = ["L", "E", "T", "T", "E", "R", "S"];
+    expect(keyboardSelectLetter([2, 3], letters, "t")).toEqual([2, 3]);
   });
 });

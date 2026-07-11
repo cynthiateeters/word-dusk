@@ -45,6 +45,7 @@
   font-size: 11px; text-transform: uppercase; letter-spacing: 1.5px;
   color: #9aa5c8; font-weight: 700;
 }
+.header-actions { display: flex; align-items: center; gap: 10px; }
 .bonus-chip {
   display: flex; align-items: center; gap: 7px;
   font-size: 13px; font-weight: 700; color: #f0c26e;
@@ -115,6 +116,7 @@
   touch-action: none;
   cursor: pointer;
 }
+.wheel:focus-visible { outline: 2px solid #e8b04b; outline-offset: 4px; }
 .trace { position: absolute; inset: 0; pointer-events: none; }
 .trace polyline {
   fill: none;
@@ -190,6 +192,39 @@
   font-size: 32px; font-weight: 650; margin-bottom: 10px;
 }
 .overlay-stats { color: #9aa5c8; font-size: 14px; font-weight: 600; margin-bottom: 22px; }
+
+/* level select */
+.level-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 12px;
+  width: 100%;
+  max-width: 380px;
+  margin-top: 12px;
+}
+.level-tile {
+  position: relative;
+  aspect-ratio: 1;
+  border-radius: 12px;
+  background: rgba(242, 236, 220, 0.08);
+  border: 1px solid rgba(242, 236, 220, 0.28);
+  color: #f2ecdc;
+  font-weight: 800;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+.level-tile:focus-visible { outline: 2px solid #e8b04b; outline-offset: 2px; }
+.level-tile.cleared { background: #e8b04b; color: #10162b; border-color: #e8b04b; }
+.level-tile.locked { opacity: 0.35; cursor: default; }
+.level-tile-check { position: absolute; top: 2px; right: 6px; font-size: 11px; }
+
+/* about panel */
+.about-card { max-width: 340px; text-align: left; }
+.about-text { color: #cdd4ea; font-size: 14px; line-height: 1.5; margin-bottom: 14px; }
+.about-card .btn-primary { margin-top: 4px; }
 
 @media (prefers-reduced-motion: reduce) {
   .star, .cell.pop, .shake, .overlay, .overlay-card { animation: none !important; }

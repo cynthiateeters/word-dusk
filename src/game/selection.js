@@ -16,3 +16,10 @@ export function moveSelection(selection, idx) {
 export function selectionToWord(selection, letters) {
   return selection.map((i) => letters[i]).join("");
 }
+
+export function keyboardSelectLetter(selection, letters, letterChar) {
+  const upper = letterChar.toUpperCase();
+  const idx = letters.findIndex((l, i) => l === upper && !selection.includes(i));
+  if (idx === -1) return selection;
+  return [...selection, idx];
+}

@@ -1,5 +1,10 @@
 import { useState, useRef, useMemo, useCallback } from "react";
-import { startSelection, moveSelection, selectionToWord } from "../game/selection.js";
+import {
+  startSelection,
+  moveSelection,
+  selectionToWord,
+  keyboardSelectLetter,
+} from "../game/selection.js";
 
 const WHEEL_SIZE = 264;
 const LETTER_SIZE = 58;
@@ -78,6 +83,42 @@ export default function Wheel({ letters, onSubmit, onTraceChange, disabled }) {
     });
   };
 
+  const handleKeyDown = (e) => {
+    if (disabled) return;
+    if (e.key === "Backspace") {
+      e.preventDefault();
+      setSelection((sel) => {
+        const next = sel.slice(0, -1);
+        onTraceChange(selectionToWord(next, letters));
+        return next;
+      });
+      return;
+    }
+    if (e.key === "Enter") {
+      e.preventDefault();
+      setSelection((sel) => {
+        onSubmit(selectionToWord(sel, letters));
+        onTraceChange("");
+        return [];
+      });
+      return;
+    }
+    if (e.key === "Escape") {
+      e.preventDefault();
+      setSelection([]);
+      onTraceChange("");
+      return;
+    }
+    if (/^[a-zA-Z]$/.test(e.key)) {
+      e.preventDefault();
+      setSelection((sel) => {
+        const next = keyboardSelectLetter(sel, letters, e.key);
+        if (next !== sel) onTraceChange(selectionToWord(next, letters));
+        return next;
+      });
+    }
+  };
+
   const tracePoints = selection.map((i) => positions[i]);
 
   return (
@@ -85,10 +126,14 @@ export default function Wheel({ letters, onSubmit, onTraceChange, disabled }) {
       ref={containerRef}
       className="wheel"
       style={{ width: WHEEL_SIZE, height: WHEEL_SIZE }}
+      tabIndex={0}
+      role="group"
+      aria-label="Letter wheel"
       onPointerDown={handleDown}
       onPointerMove={handleMove}
       onPointerUp={handleUp}
       onPointerCancel={handleUp}
+      onKeyDown={handleKeyDown}
     >
       <svg className="trace" width={WHEEL_SIZE} height={WHEEL_SIZE}>
         {tracePoints.length > 0 && (
