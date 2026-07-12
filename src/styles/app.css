@@ -71,7 +71,7 @@
 .cell {
   border-radius: 8px;
   background: rgba(20, 28, 56, .65);
-  border: 1px solid rgba(154, 165, 200, .25);
+  border: 1px solid rgba(180, 190, 220, .55);
   display: flex; align-items: center; justify-content: center;
   font-weight: 800; color: #1b2547;
   transition: background .25s ease, transform .25s ease;
